@@ -89,6 +89,7 @@ entity CustomerDocument : managed {
 }
 
 entity Login {
+<<<<<<< HEAD
   key ID           : UUID;
       EmployeeName : String;
       Role         : String;
@@ -121,4 +122,38 @@ entity Employee {
       Designation           : String;
       STDCode               : String;
       MobileNo              : Integer;
+=======
+  Employee_ID  : Association to Employee;
+  EmployeeName : String;
+  Role         : String;
+  EmailID      : String;
+  OTP          : Integer;
+  Password     : String;
+  BranchCode   : String;
+  CompanyCode  : String;
+  TimeDate     : DateTime;
+  MobileNo     : Integer;
+}
+
+entity Employee {
+  EmployeeID            : UUID;
+  Role                  : String;
+  Salutation            : String;
+  EmployeeName          : String;
+  FatherName            : String;
+  Gender                : String;
+  DateOfBirth           : String;
+  CompanyEmailID        : String;
+  PermanentAddress      : String;
+  CorrespondenceAddress : String;
+  Country               : String;
+  State                 : String;
+  CountryCode           : String;
+  BaseLocation          : String;
+  BloodGroup            : String;
+  ManagerName           : String;
+  Designation           : String;
+  STDCode               : String;
+  MobileNo              : Integer;
+>>>>>>> cf00556ac37682d9fd9fce284cffc16a61d2d368
 }
