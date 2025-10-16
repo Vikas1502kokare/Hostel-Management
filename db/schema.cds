@@ -141,5 +141,4 @@ entity Login : managed {
       MobileNo     : String(15);
       // Foreign Key Association
       Employee     : Association to Employee; // i think no need to Added: Login links to Employee
-
-};
+}
