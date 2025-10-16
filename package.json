@@ -13,7 +13,7 @@
     "@sap/cds-dk": "^9"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "node api.js && cds-serve"
   },
   "private": true,
   "cds": {
