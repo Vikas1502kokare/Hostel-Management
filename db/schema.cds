@@ -2,15 +2,13 @@ namespace my.hostel;
 
 using {managed} from '@sap/cds/common';
 
-// --- MASTER DATA ENTITIES ---
-
 entity Rooms : managed {
   key ID          : UUID;
       RoomNo      : String(10);
       BedTypes    : String(20);
       Price       : Decimal(10, 2);
       AC_type     : String(10);
-      Shareble    : Boolean; // Correct: Boolean
+      Shareble    : Boolean; 
       Currency    : String(3);
       NoOfPersons : Integer;
       BranchCode  : String(10);
@@ -36,7 +34,7 @@ entity Employee : managed {
       EmployeeName          : String(50);
       FatherName            : String(50);
       Gender                : String(10);
-      DateOfBirth           : Date; // Corrected: Date type
+      DateOfBirth           : Date; 
       CompanyEmailID        : String(50);
       PermanentAddress      : String(100);
       CorrespondenceAddress : String(100);
@@ -48,7 +46,7 @@ entity Employee : managed {
       ManagerName           : String(50);
       Designation           : String(50);
       STDCode               : String(10);
-      MobileNo              : String(15); // Corrected: String type
+      MobileNo              : String(15);
       // Associations
       Logins                : Association to Login;
 }
@@ -94,7 +92,6 @@ entity Booking : managed {
       Payments    : Association to many Payment
                       on Payments.Booking = $self;
 
-// Fields Removed: RoomNo (Redundant), Payment_ID (Association loop)
 }
 
 entity Payment : managed {
@@ -107,9 +104,7 @@ entity Payment : managed {
       Currency      : String(3);
       // Foreign Key Associations
       Booking       : Association to Booking;
-      Customer      : Association to Customer; // (Raha diya, transaction detail ke liye)
-
-// Field Removed: currency (Duplicate)
+      Customer      : Association to Customer;
 }
 
 
@@ -140,5 +135,5 @@ entity Login : managed {
       TimeDate     : DateTime;
       MobileNo     : String(15);
       // Foreign Key Association
-      Employee     : Association to Employee; // i think no need to Added: Login links to Employee
+      Employee     : Association to Employee; 
 }

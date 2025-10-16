@@ -3,15 +3,15 @@ POST http://localhost:4004/odata/v4/catalog/Rooms
 Content-Type: application/json
 
 {
-    "Room_no":"102",
-      "Bed_Types"     : "Three Beds",
-      "Price"         : 1001.11,
-      "AC_type"       : "NON-AC",
-      "Shareble"      : true,
-      "Currency"      : "INR",
-      "No_of_Persons" : 3,
-      "BranchCode"    : "KL-2002",
-      "CompanyCode"   : "KT-1"
+   "RoomNo"      : "101",
+      "BedTypes"    : "Two",
+      "Price"       :1001,
+      "AC_type"     : "Ac",
+      "Shareble"    : true,
+      "Currency"    : "IN",
+      "NoOfPersons" : 5,
+      "BranchCode"  : "KL-101",
+      "CompanyCode" : "KT-1";  
 }
 
 ###
