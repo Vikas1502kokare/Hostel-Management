@@ -1,5 +1,6 @@
 {
   "scopes": [],
   "attributes": [],
-  "role-templates": []
+  "role-templates": [],
+  "authorities-inheritance": false
 }

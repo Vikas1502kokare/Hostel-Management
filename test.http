@@ -1,0 +1,62 @@
+##### ROOMS #######
+POST http://localhost:4004/odata/v4/catalog/Rooms
+Content-Type: application/json
+
+{
+    "Room_no":"102",
+      "Bed_Types"     : "Three Beds",
+      "Price"         : 1001.11,
+      "AC_type"       : "NON-AC",
+      "Shareble"      : true,
+      "Currency"      : "INR",
+      "No_of_Persons" : 3,
+      "BranchCode"    : "KL-2002",
+      "CompanyCode"   : "KT-1"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Rooms
+Content-Type: application/json
+
+
+#### Payment ######
+
+POST http://localhost:4004/odata/v4/catalog/Payment
+Content-Type: application/json
+
+{
+  "Date"           : "2025-04-06",
+  "Bank_Name"      : "Bank of india",
+  "Amount"         : 20001,
+  "Mode"           : "Online",
+  "Transaction_ID" :"BK-124",
+  "currency"       : "INR"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Payment
+Content-Type: application/json
+
+#### Booking ######
+
+POST http://localhost:4004/odata/v4/catalog/Booking
+Content-Type: application/json
+
+{
+  Customer_ID   : Association to Customer;
+  key Booking_ID    : UUID;
+  "Room_No"       : "102";
+  Payment_ID    : Association to Payment;
+  No_of_Persons : Integer;
+  Start_Date    : Date;
+  End_Date      : Date;
+  Booking_Date  : Date;
+  Cancel_Date   : Date;
+  Payment_Type  : String;
+  Status        : String;
+  RoomNo        : Integer;
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Booking
+Content-Type: application/json
