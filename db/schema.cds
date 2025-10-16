@@ -2,158 +2,144 @@ namespace my.hostel;
 
 using {managed} from '@sap/cds/common';
 
-// entity Books {
-//   key ID    : Integer;
-//       title : String;
-//       stock : Integer;
-// }
-entity Rooms {
-  key ID            : UUID;
-      Room_no       : String;
-      Bed_Types     : String;
-      Price         : Decimal(10, 2);
-      AC_type       : String;
-      Shareble      : Boolean;
-      Currency      : String;
-      No_of_Persons : Integer;
-      BranchCode    : String;
-      CompanyCode   : String;
-      room_photos   : LargeString;
-      Booking_ID: Association to Booking;
-}
+// --- MASTER DATA ENTITIES ---
 
-entity Price {
-  key PriceID     : UUID;
-      Type        : String;
-      PaymentName : String;
+entity Rooms : managed {
+  key ID          : UUID;
+      RoomNo      : String(10);
+      BedTypes    : String(20);
       Price       : Decimal(10, 2);
-      Currency    : String;
+      AC_type     : String(10);
+      Shareble    : Boolean; // Correct: Boolean
+      Currency    : String(3);
+      NoOfPersons : Integer;
+      BranchCode  : String(10);
+      CompanyCode : String(10);
+      room_photos : LargeString;
+      // Association Correction: One Room has many Bookings
+      Bookings    : Association to many Booking
+                      on Bookings.Room = $self;
 }
 
-entity Payment {
-  key Payment_ID     : UUID;
-      Booking_ID     : Association to Booking;
-      Date           : Date;
-      Bank_Name      : String;
-      Amount         : Decimal(10, 2);
-      Mode           : String;
-      Transaction_ID : String;
-      Customer_ID    : Association to Customer;
-      currency       : String;
+entity Price : managed {
+  key PriceID     : UUID;
+      Type        : String(20); // Veg/Non-Veg/penalty
+      PaymentName : String(50);
+      Price       : Decimal(10, 2);
+      Currency    : String(3);
 }
 
-entity Booking {
-      Customer_ID   : Association to Customer;
-  key Booking_ID    : UUID;
-      Room_No       : Association to Rooms;
-      Payment_ID    : Association to Payment;
-      No_of_Persons : Integer;
-      Start_Date    : Date;
-      End_Date      : Date;
-      Booking_Date  : Date;
-      Cancel_Date   : Date;
-      Payment_Type  : String;
-      Status        : String;
-      RoomNo        : Integer;
+entity Employee : managed {
+  key EmployeeID            : UUID;
+      Role                  : String(20);
+      Salutation            : String(10);
+      EmployeeName          : String(50);
+      FatherName            : String(50);
+      Gender                : String(10);
+      DateOfBirth           : Date; // Corrected: Date type
+      CompanyEmailID        : String(50);
+      PermanentAddress      : String(100);
+      CorrespondenceAddress : String(100);
+      Country               : String(50);
+      State                 : String(50);
+      CountryCode           : String(5);
+      BaseLocation          : String(50);
+      BloodGroup            : String(5);
+      ManagerName           : String(50);
+      Designation           : String(50);
+      STDCode               : String(10);
+      MobileNo              : String(15); // Corrected: String type
+      // Associations
+      Logins                : Association to Login;
 }
 
-entity Customer {
-  key customer_ID      : UUID;
-      document_id      : Association to CustomerDocument;
-      Booking_id       : Association to Booking;
-      Payment_id       : Association to Payment;
-      Salutation       : String;
-      CustomerName     : String;
-      Gender           : String;
-      DateOfBirth      : String;
-      PermanentAddress : String;
-      Country          : String;
-      State            : String;
-      CountryCode      : String;
-      city             : String;
-      STDCode          : String;
-      MobileNo         : Integer;
-      CustomerEmail    : String;
+// --- TRANSACTIONAL ENTITIES ---
+
+entity Customer : managed {
+  key CustomerID       : UUID;
+      Salutation       : String(10);
+      CustomerName     : String(50);
+      Gender           : String(10);
+      DateOfBirth      : Date; // Corrected: Date type
+      PermanentAddress : String(100);
+      Country          : String(50);
+      State            : String(50);
+      CountryCode      : String(5);
+      City             : String(50);
+      STDCode          : String(10);
+      MobileNo         : String(15); // Corrected: String type
+      CustomerEmail    : String(50);
+      // Association Corrections: One Customer has many Bookings, Documents, and (potentially) Payments
+      Bookings         : Association to many Booking
+                           on Bookings.Customer = $self;
+      Documents        : Association to many CustomerDocument
+                           on Documents.Customer = $self;
+      Payments         : Association to many Payment
+                           on Payments.Customer = $self;
 }
+
+entity Booking : managed {
+  key BookingID   : UUID;
+      NoOfPersons : Integer;
+      StartDate   : Date;
+      EndDate     : Date;
+      BookingDate : Date;
+      CancelDate  : Date;
+      PaymentType : String(20);
+      Status      : String(20);
+      // Foreign Key Associations
+      Customer    : Association to Customer; // Customer_ID association
+      Room        : Association to Rooms; // Room_No association
+      // Association Correction: One Booking has many Payments
+      Payments    : Association to many Payment
+                      on Payments.Booking = $self;
+
+// Fields Removed: RoomNo (Redundant), Payment_ID (Association loop)
+}
+
+entity Payment : managed {
+  key PaymentID     : UUID;
+      Date          : Date;
+      BankName      : String(50);
+      Amount        : Decimal(10, 2);
+      Mode          : String(20);
+      TransactionID : String(50);
+      Currency      : String(3);
+      // Foreign Key Associations
+      Booking       : Association to Booking;
+      Customer      : Association to Customer; // (Raha diya, transaction detail ke liye)
+
+// Field Removed: currency (Duplicate)
+}
+
+
+// --- DOCUMENT/LOGIN ENTITIES ---
 
 entity CustomerDocument : managed {
   key ID           : UUID;
       DocumentType : LargeString;
-      EmployeelD   : Integer;
-      // CreatedOn
-      // CreatedBy
-      File         : String;
-      FileName     : String;
-      FileType     : String;
-      Documents    : String;
+      File         : String(100);
+      FileName     : String(100);
+      FileType     : String(10);
+      Documents    : String(100);
+      // Foreign Key Associations
+      Customer     : Association to Customer;
+      Employee     : Association to Employee;
+
 }
 
-entity Login {
-<<<<<<< HEAD
+entity Login : managed {
   key ID           : UUID;
-      EmployeeName : String;
-      Role         : String;
-      EmailID      : String;
-      OTP          : Integer;
-      Password     : String;
-      BranchCode   : String;
-      CompanyCode  : String;
+      EmployeeName : String(100);
+      Role         : String(10);
+      EmailID      : String(100);
+      OTP          : String(10);
+      Password     : String(100);
+      BranchCode   : String(10);
+      CompanyCode  : String(10);
       TimeDate     : DateTime;
-      MobileNo     : Integer;
-}
+      MobileNo     : String(15);
+      // Foreign Key Association
+      Employee     : Association to Employee; // i think no need to Added: Login links to Employee
 
-entity Employee {
-  key EmployeeID            : UUID;
-      Role                  : String;
-      Salutation            : String;
-      EmployeeName          : String;
-      FatherName            : String;
-      Gender                : String;
-      DateOfBirth           : String;
-      CompanyEmailID        : String;
-      PermanentAddress      : String;
-      CorrespondenceAddress : String;
-      Country               : String;
-      State                 : String;
-      CountryCode           : String;
-      BaseLocation          : String;
-      BloodGroup            : String;
-      ManagerName           : String;
-      Designation           : String;
-      STDCode               : String;
-      MobileNo              : Integer;
-=======
-  Employee_ID  : Association to Employee;
-  EmployeeName : String;
-  Role         : String;
-  EmailID      : String;
-  OTP          : Integer;
-  Password     : String;
-  BranchCode   : String;
-  CompanyCode  : String;
-  TimeDate     : DateTime;
-  MobileNo     : Integer;
-}
-
-entity Employee {
-  EmployeeID            : UUID;
-  Role                  : String;
-  Salutation            : String;
-  EmployeeName          : String;
-  FatherName            : String;
-  Gender                : String;
-  DateOfBirth           : String;
-  CompanyEmailID        : String;
-  PermanentAddress      : String;
-  CorrespondenceAddress : String;
-  Country               : String;
-  State                 : String;
-  CountryCode           : String;
-  BaseLocation          : String;
-  BloodGroup            : String;
-  ManagerName           : String;
-  Designation           : String;
-  STDCode               : String;
-  MobileNo              : Integer;
->>>>>>> cf00556ac37682d9fd9fce284cffc16a61d2d368
 }
