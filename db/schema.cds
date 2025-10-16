@@ -142,4 +142,4 @@ entity Login : managed {
       // Foreign Key Association
       Employee     : Association to Employee; // i think no need to Added: Login links to Employee
 
-}
+};
