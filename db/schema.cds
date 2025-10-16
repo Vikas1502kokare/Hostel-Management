@@ -1,5 +1,6 @@
 namespace my.bookshop;
 
+<<<<<<< HEAD
 using {managed} from '@sap/cds/common';
 
 
@@ -122,4 +123,10 @@ entity Employee {
   Designation           : String;
   STDCode               : String;
   MobileNo              : Integer;
+=======
+entity Books {
+  key ID    : Integer;
+      title : String;
+      stock : Integer;
+>>>>>>> bc7a54eb9c35eabbe1628a82c0b298fc7f4eb1f7
 }
