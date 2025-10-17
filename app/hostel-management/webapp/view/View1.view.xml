@@ -26,7 +26,11 @@
                 />
             </contentLeft>
 
-            <contentMiddle>
+            <!-- <contentMiddle>
+               
+            </contentMiddle> -->
+
+            <contentRight>
                 <Button
                     text="Home"
                     class="sapUiLargeMarginEnd"
@@ -39,9 +43,6 @@
                     text="Contact Us"
                     class="sapUiLargeMarginEnd"
                 />
-            </contentMiddle>
-
-            <contentRight>
                 <HBox>
                     <Button
                         text="Login"
@@ -63,123 +64,449 @@
                 showPageIndicator="true"
                 class="customCarousel"
             >
-                <!-- Slide 1 -->
-                <HBox alignItems="Center">
-                    <f:Card
-                        width="250px"
-                        height="250px"
-                        class="sapUiSmallMargin"
+                <!-- Card 1 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="auto"
+                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
+                >
+                    <Panel
+                        width="auto"
+                        height="auto"
+                        class="classofmargin"
                     >
-                        <f:header>
-                            <card:Header
-                                title="Room A"
-                                subtitle="2 Beds"
-                            />
-                        </f:header>
-                        <f:content>
-                            <Image
-                                src="images/hostelimage1.jpg"
-                                width="100%" height="150px"
-                            />
-                            <Text
-                                text="Spacious double bed room with balcony view."
-                            />
-                        </f:content>
-                    </f:Card>
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    text="Hot Water Service"
+                                    level=""
+                                />
+                                <Text
+                                    text=""
+                                    class=""
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <HBox>
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Image
+                                    src="images/hostelimage1.jpg"
+                                    width="100%"
+                                    height="40%"
+                                />
+                            </VBox>
 
-                    <f:Card
-                        width="250px"
-                        height="250px"
-                        class="sapUiSmallMargin"
-                    >
-                        <f:header>
-                            <card:Header
-                                title="Room A"
-                                subtitle="2 Beds"
-                            />
-                        </f:header>
-                        <f:content>
-                            <Image
-                                src="images/hostelimg2.jpg"
-                                width="100%"
-                                height="150px"
-                            />
-                            <Text
-                                text="Spacious double bed room with balcony view."
-                            />
-                        </f:content>
-                    </f:Card>
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginBegin"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
 
-                    <f:Card
-                        width="250px"
-                        height="250px"
-                        class="sapUiSmallMargin"
+                <!-- Card 2 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="auto"
+                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
+                >
+                    <Panel
+                        width="auto"
+                        height="auto"
+                        class="classofmargin"
                     >
-                        <f:header>
-                            <card:Header
-                                title="Room A"
-                                subtitle="2 Beds"
-                            />
-                        </f:header>
-                        <f:content>
-                            <Image
-                                src="images/hostelimg3.jpg"
-                                width="100%"
-                                height="150px"
-                            />
-                            <Text
-                                text="Spacious double bed room with balcony view."
-                            />
-                        </f:content>
-                    </f:Card>
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    text="Hot Water Service"
+                                    level=""
+                                />
+                                <Text
+                                    text=""
+                                    class=""
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <HBox>
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Image
+                                    src="images/hostelimage1.jpg"
+                                    width="100%"
+                                    height="40%"
+                                />
+                            </VBox>
 
-                    <f:Card
-                        width="250px"
-                        height="250px"
-                        class="sapUiSmallMargin"
-                    >
-                        <f:header>
-                            <card:Header
-                                title="Room A"
-                                subtitle="2 Beds"
-                            />
-                        </f:header>
-                        <f:content>
-                            <Image
-                                src="images/hostelimg4.jpg"
-                                width="100%"
-                                height="150px"
-                            />
-                            <Text
-                                text="Spacious double bed room with balcony view."
-                            />
-                        </f:content>
-                    </f:Card>
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginBegin"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
 
-                    <f:Card
-                        width="250px"
-                        height="250px"
-                        class="sapUiSmallMargin"
+                <!-- Card 3 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="auto"
+                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
+                >
+                    <Panel
+                        width="auto"
+                        height="auto"
+                        class="classofmargin"
                     >
-                        <f:header>
-                            <card:Header
-                                title="Room A"
-                                subtitle="2 Beds"
-                            />
-                        </f:header>
-                        <f:content>
-                            <Image
-                                src="images/hostelimg4.jpg"
-                                width="100%"
-                                height="150px"
-                            />
-                            <Text
-                                text="Spacious double bed room with balcony view."
-                            />
-                        </f:content>
-                    </f:Card>
-                </HBox>
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    text="Hot Water Service"
+                                    level=""
+                                />
+                                <Text
+                                    text=""
+                                    class=""
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <HBox>
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Image
+                                    src="images/hostelimage1.jpg"
+                                    width="100%"
+                                    height="40%"
+                                />
+                            </VBox>
+
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginBegin"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
+
+                <!-- Card 4 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="auto"
+                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
+                >
+                    <Panel
+                        width="auto"
+                        height="auto"
+                        class="classofmargin"
+                    >
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    text="Hot Water Service"
+                                    level=""
+                                />
+                                <Text
+                                    text=""
+                                    class=""
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <HBox>
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Image
+                                    src="images/hostelimage1.jpg"
+                                    width="100%"
+                                    height="40%"
+                                />
+                            </VBox>
+
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginBegin"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
+
+                <!-- Card 5 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="auto"
+                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
+                >
+                    <Panel
+                        width="auto"
+                        height="auto"
+                        class="classofmargin"
+                    >
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    text="Hot Water Service"
+                                    level=""
+                                />
+                                <Text
+                                    text=""
+                                    class=""
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <HBox>
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Image
+                                    src="images/hostelimage1.jpg"
+                                    width="100%"
+                                    height="40%"
+                                />
+                            </VBox>
+
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="50%"
+                                class="sapUiSmallMarginBegin"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
             </Carousel>
         </content>
+
+        <Panel
+            width="100%"
+            class="sapUiSmallMargin"
+            headerText="Our Rooms"
+        >
+            <HBox
+                justifyContent="Center"
+                alignItems="Center"
+                wrap="true"
+            >
+                <!-- Card 1 -->
+                <Panel
+                    width="auto"
+                    height="auto"
+                    class="sapUiSmallMargin"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="Sharable Rooms"
+                                level=""
+                            />
+                            <Text
+                                text=""
+                                class=""
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox>
+                        <Image
+                            src="images/hostelimage1.jpg"
+                            width="100%"
+                            height="150px"
+                        />
+                        <Text
+                            text="Keep your clothes clean and fresh with our reliable laundry service. Fast, convenient, and hassle-free for all hostel residents."
+                        />
+                    </VBox>
+                </Panel>
+
+                <!-- Card 2 -->
+                <Panel
+                    width="auto"
+                    height="auto"
+                    class="sapUiSmallMargin"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="NON-AC Rooms"
+                                level=""
+                            />
+                            <Text
+                                text=""
+                                class=""
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox>
+                        <Image
+                            src="images/hostelimg2.jpg"
+                            width="100%"
+                            height="150px"
+                        />
+                        <Text
+                            text="Enjoy delicious and hygienic meals prepared daily for our residents. Fresh, tasty, and convenient dining right at your hostel."
+                        />
+                    </VBox>
+                </Panel>
+
+                <!-- Card 3 -->
+                <Panel
+                    width="auto"
+                    height="auto"
+                    class="sapUiSmallMargin"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="AC Sharable Rooms"
+                                level=""
+                            />
+                            <Text
+                                text=""
+                                class=""
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox>
+                        <Image
+                            src="images/hostelimg3.jpg"
+                            width="100%"
+                            height="150px"
+                        />
+                        <Text
+                            text="Stay connected with high-speed WiFi throughout the hostel. Fast, reliable, and available for all residents anytime."
+                        />
+                    </VBox>
+                </Panel>
+
+                <!-- Card 4 -->
+                <!-- <Panel
+                    width="250px"
+                    class="sapUiSmallMargin"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="Common Rooms"
+                                level=""
+                            />
+                            <Text
+                                text=""
+                                class=""
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox>
+                        <Image
+                            src="images/hostelimg4.jpg"
+                            width="100%"
+                            height="150px"
+                        />
+                        <Text
+                            text="Experience comfort and convenience with our prompt room service. Fresh meals, essentials, and assistance delivered right to your door."
+                        />
+                    </VBox>
+                </Panel> -->
+
+                <!-- Card 5 -->
+                <!-- <Panel
+                    width="250px"
+                    class="sapUiSmallMargin"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="Function Rooms"
+                                level=""
+                            />
+                            <Text
+                                text=""
+                                class=""
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox>
+                        <Image
+                            src="images/functionroom.jpg"
+                            width="100%"
+                            height="150px"
+                        />
+                        <Text
+                            text="Relax and unwind in our beautifully maintained hostel garden. A peaceful green space to refresh your mind and enjoy nature."
+                        />
+                    </VBox>
+                </Panel> -->
+            </HBox>
+        </Panel>
+
+        <footer>
+            <OverflowToolbar>
+                <Text text="@KALPAVRIKSHA HOSTEL" />
+                <ToolbarSpacer />
+                <Button text="BOOK ROOM" />
+            </OverflowToolbar>
+        </footer>
     </Page>
 </mvc:View>
