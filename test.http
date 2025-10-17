@@ -3,15 +3,15 @@ POST http://localhost:4004/odata/v4/catalog/Rooms
 Content-Type: application/json
 
 {
-   "RoomNo"      : "101",
-      "BedTypes"    : "Two",
-      "Price"       :1001,
-      "AC_type"     : "Ac",
-      "Shareble"    : true,
-      "Currency"    : "IN",
-      "NoOfPersons" : 5,
-      "BranchCode"  : "KL-101",
-      "CompanyCode" : "KT-1";  
+  "RoomNo"      : "103",
+      "BedTypes"    : "Three",
+      "Price"       :1002.12,
+      "AC_type"     : "AC",
+      "Shareble"    : false,
+      "Currency"    : "INR",
+      "NoOfPersons" : 11,
+      "BranchCode"  :"KL-102",
+      "CompanyCode" : "KT-103"
 }
 
 ###
@@ -25,12 +25,12 @@ POST http://localhost:4004/odata/v4/catalog/Payment
 Content-Type: application/json
 
 {
-  "Date"           : "2025-04-06",
-  "Bank_Name"      : "Bank of india",
-  "Amount"         : 20001,
-  "Mode"           : "Online",
-  "Transaction_ID" :"BK-124",
-  "currency"       : "INR"
+      "Date"          : "2025-03-02",
+      "BankName"      : "SBI",
+      "Amount"        : 5023.12,
+      "Mode"          : "online",
+      "TransactionID" : "TR-1237",
+      "Currency"      : "INR"
 }
 
 ###
@@ -43,20 +43,109 @@ POST http://localhost:4004/odata/v4/catalog/Booking
 Content-Type: application/json
 
 {
-  Customer_ID   : Association to Customer;
-  key Booking_ID    : UUID;
-  "Room_No"       : "102";
-  Payment_ID    : Association to Payment;
-  No_of_Persons : Integer;
-  Start_Date    : Date;
-  End_Date      : Date;
-  Booking_Date  : Date;
-  Cancel_Date   : Date;
-  Payment_Type  : String;
-  Status        : String;
-  RoomNo        : Integer;
+ 
+      "NoOfPersons" : 10,
+      "StartDate"   : "2024-03-03",
+      "EndDate"     : "2024-03-16",
+      "BookingDate" : "2024-03-01",
+      "CancelDate"  : "2024-03-20",
+      "PaymentType" :"online",
+      "Status"      : "APV"
 }
 
 ###
 GET http://localhost:4004/odata/v4/catalog/Booking
+Content-Type: application/json
+
+#### Customer ####
+
+POST http://localhost:4004/odata/v4/catalog/Customer
+Content-Type: application/json
+
+{
+ 
+      "Salutation"       : "Mr",
+      "CustomerName"     : "Raj",
+      "Gender"           : "Male",
+      "DateOfBirth"      : "2004-11-03",
+      "PermanentAddress" : "Mumbai",
+      "Country"          : "India",
+      "State"            : "MH",
+      "CountryCode"      : "INR",
+      "City"             : "Pune",
+      "STDCode"          : "+91",
+      "MobileNo"         : "1234567390",
+      "CustomerEmail"    : "raj@gmail.com"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Customer
+Content-Type: application/json
+
+
+#### Customer ####
+
+POST http://localhost:4004/odata/v4/catalog/CustomerDocument
+Content-Type: application/json
+
+{
+      "DocumentType" : "PDF",
+      "FileName"     : "photo",
+      "FileType"     : "mim"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/CustomerDocument
+Content-Type: application/json
+
+
+#### Login ####
+
+POST http://localhost:4004/odata/v4/catalog/Login
+Content-Type: application/json
+
+{
+      "EmployeeName" : "pk",
+      "Role"         : "emp",
+      "EmailID"      : "pk@gmail.com",
+      "OTP"          : "123456",
+      "Password"     : "12345",
+      "BranchCode"   : "KL-101",
+      "CompanyCode"  : "KT-1001",
+      "TimeDate"     : "2025-09-02",
+      "MobileNo"     : "1234531234"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Login
+Content-Type: application/json
+
+#### Employee ####
+
+POST http://localhost:4004/odata/v4/catalog/Employee
+Content-Type: application/json
+
+{
+      "Role"                  : "Employee",
+      "Salutation"            : "Mr",
+      "EmployeeName"          : "bob",
+      "FatherName"            : "dummy",
+      "Gender"                : "male",
+      "DateOfBirth"           : "2003-09-07",
+      "CompanyEmailID"        : "bob@gmail.com",
+      "PermanentAddress"      :"pune",
+      "CorrespondenceAddress" : "pune",
+      "Country"               : "India",
+      "State"                 : "MH",
+      "CountryCode"           : "INR",
+      "BaseLocation"          : "KL-101",
+      "BloodGroup"            : "O+",
+      "ManagerName"           : "Datti",
+      "Designation"           : "jr.developer",
+      "STDCode"               : "+91",
+      "MobileNo"              : "1234567890"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/Employee
 Content-Type: application/json

@@ -1,0 +1,14 @@
+/* Enter your custom styles here */
+
+.customBar {
+    height: 200px; /* Increases the height of the Bar */
+    padding: 10px;
+    background-color: #f8f9fa; /* Optional: light background */
+    align-items: center;
+}
+
+.circleImage {
+    border-radius: 100%; /* Makes the image circular */
+    object-fit: cover;  /* Ensures the image scales properly */
+    border: 2px solid #ccc; /* Optional border */
+}

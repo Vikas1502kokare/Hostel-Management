@@ -8,12 +8,13 @@ entity Rooms : managed {
       BedTypes    : String(20);
       Price       : Decimal(10, 2);
       AC_type     : String(10);
-      Shareble    : Boolean; 
+      Shareble    : Boolean;
       Currency    : String(3);
       NoOfPersons : Integer;
       BranchCode  : String(10);
       CompanyCode : String(10);
       room_photos : LargeString;
+      flag        : Boolean;
       // Association Correction: One Room has many Bookings
       Bookings    : Association to many Booking
                       on Bookings.Room = $self;
@@ -34,7 +35,7 @@ entity Employee : managed {
       EmployeeName          : String(50);
       FatherName            : String(50);
       Gender                : String(10);
-      DateOfBirth           : Date; 
+      DateOfBirth           : Date;
       CompanyEmailID        : String(50);
       PermanentAddress      : String(100);
       CorrespondenceAddress : String(100);
@@ -85,6 +86,7 @@ entity Booking : managed {
       CancelDate  : Date;
       PaymentType : String(20);
       Status      : String(20);
+      Discount    : Decimal(10, 2);
       // Foreign Key Associations
       Customer    : Association to Customer; // Customer_ID association
       Room        : Association to Rooms; // Room_No association
@@ -135,5 +137,14 @@ entity Login : managed {
       TimeDate     : DateTime;
       MobileNo     : String(15);
       // Foreign Key Association
-      Employee     : Association to Employee; 
+      Employee     : Association to Employee;
+}
+
+entity Transaction {
+ key ID:UUID;
+  BookingID    : Association to Booking;
+  TransactionID:UUID;
+  RoomNo       : Association to Rooms;
+  NumberPerson : Integer;
+  Flag         : Boolean;
 }

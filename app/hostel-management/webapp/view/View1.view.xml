@@ -1,0 +1,185 @@
+<mvc:View
+    controllerName="hostel.com.hostelmanagement.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+>
+    <Page
+        id="page"
+        title="Kalpavriksha Hostel"
+    >
+        <!-- === TOP BAR === -->
+        <Bar class="customBar">
+            <contentLeft>
+                <Image
+                    src="images/hostel.jpg"
+                    alt="Hostel Logo"
+                    decorative="false"
+                    width="40px"
+                    height="40px"
+                    class="circleImage"
+                />
+                <Text
+                    text="Kalpavriksha Hostel"
+                    class="sapUiSmallMarginBegin sapUiLargeFontSize"
+                />
+            </contentLeft>
+
+            <contentMiddle>
+                <Button
+                    text="Home"
+                    class="sapUiLargeMarginEnd"
+                />
+                <Button
+                    text="About Us"
+                    class="sapUiLargeMarginEnd"
+                />
+                <Button
+                    text="Contact Us"
+                    class="sapUiLargeMarginEnd"
+                />
+            </contentMiddle>
+
+            <contentRight>
+                <HBox>
+                    <Button
+                        text="Login"
+                        type="Emphasized"
+                    />
+                    <Button
+                        text="Signup"
+                        class="sapUiTinyMarginBegin"
+                    />
+                </HBox>
+            </contentRight>
+        </Bar>
+
+        <content>
+            <Carousel
+                id="myCarousel"
+                height="350px"
+                loop="true"
+                showPageIndicator="true"
+                class="customCarousel"
+            >
+                <!-- Slide 1 -->
+                <HBox alignItems="Center">
+                    <f:Card
+                        width="250px"
+                        height="250px"
+                        class="sapUiSmallMargin"
+                    >
+                        <f:header>
+                            <card:Header
+                                title="Room A"
+                                subtitle="2 Beds"
+                            />
+                        </f:header>
+                        <f:content>
+                            <Image
+                                src="images/hostelimage1.jpg"
+                                width="100%" height="150px"
+                            />
+                            <Text
+                                text="Spacious double bed room with balcony view."
+                            />
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card
+                        width="250px"
+                        height="250px"
+                        class="sapUiSmallMargin"
+                    >
+                        <f:header>
+                            <card:Header
+                                title="Room A"
+                                subtitle="2 Beds"
+                            />
+                        </f:header>
+                        <f:content>
+                            <Image
+                                src="images/hostelimg2.jpg"
+                                width="100%"
+                                height="150px"
+                            />
+                            <Text
+                                text="Spacious double bed room with balcony view."
+                            />
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card
+                        width="250px"
+                        height="250px"
+                        class="sapUiSmallMargin"
+                    >
+                        <f:header>
+                            <card:Header
+                                title="Room A"
+                                subtitle="2 Beds"
+                            />
+                        </f:header>
+                        <f:content>
+                            <Image
+                                src="images/hostelimg3.jpg"
+                                width="100%"
+                                height="150px"
+                            />
+                            <Text
+                                text="Spacious double bed room with balcony view."
+                            />
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card
+                        width="250px"
+                        height="250px"
+                        class="sapUiSmallMargin"
+                    >
+                        <f:header>
+                            <card:Header
+                                title="Room A"
+                                subtitle="2 Beds"
+                            />
+                        </f:header>
+                        <f:content>
+                            <Image
+                                src="images/hostelimg4.jpg"
+                                width="100%"
+                                height="150px"
+                            />
+                            <Text
+                                text="Spacious double bed room with balcony view."
+                            />
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card
+                        width="250px"
+                        height="250px"
+                        class="sapUiSmallMargin"
+                    >
+                        <f:header>
+                            <card:Header
+                                title="Room A"
+                                subtitle="2 Beds"
+                            />
+                        </f:header>
+                        <f:content>
+                            <Image
+                                src="images/hostelimg4.jpg"
+                                width="100%"
+                                height="150px"
+                            />
+                            <Text
+                                text="Spacious double bed room with balcony view."
+                            />
+                        </f:content>
+                    </f:Card>
+                </HBox>
+            </Carousel>
+        </content>
+    </Page>
+</mvc:View>
