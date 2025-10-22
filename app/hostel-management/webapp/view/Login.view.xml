@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="hostel.com.hostelmanagement.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:card="sap.f.cards"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    displayBlock="true"
+    height="100%"
+    xmlns:h="sap.ui.layout.form"
+>
+    <Page>
+        <f:Card
+            class="sapUiMediumMargin"
+            width="300px"
+        >
+            <f:header>
+                <card:Header
+                    title="Login Details"
+                    subtitle=""
+                    iconSrc=""
+                />
+            </f:header>
+            <f:content>
+                <h:SimpleForm
+                    id="SimpleFormDisplay354"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    title=""
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                >
+                    <h:content>
+                        <Label
+                            text="User ID"
+                            required="true"
+                        />
+                        <Input
+                            id="nameText"
+                            text="{SupplierName}"
+                        />
+                        <Label
+                            text="User Name"
+                            required="true"
+                        />
+                        <Input text="{Street} {HouseNumber}" />
+
+                        <Label text="Login With" />
+                        <HBox>
+                            <RadioButtonGroup
+                                id="groupB"
+                                valueState="Success"
+                            >
+                                <RadioButton
+                                    text="OTP"
+                                    selected="true"
+                                />
+                                <RadioButton text="Password" />
+                            </RadioButtonGroup>
+                        </HBox>
+                        <Label
+                            text="Password"
+                            required="true"
+                        />
+                        <Input text="{ZIPCode} {City}" />
+                        <Button
+                            text="Login"
+                            type="Emphasized"
+                        />
+                    </h:content>
+                </h:SimpleForm>
+            </f:content>
+        </f:Card>
+    </Page>
+</mvc:View>

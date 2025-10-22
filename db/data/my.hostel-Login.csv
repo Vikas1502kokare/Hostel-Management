@@ -1,0 +1,10 @@
+ID,UserName,Role,EmailID,OTP,Password,BranchCode,CompanyCode,TimeDate,MobileNo,Employee_EmployeeID,createdAt,createdBy,modifiedAt,modifiedBy
+d1c2b3a4-e5f6-7d8c-9b0a-1e2f3d4c5b6a,Sharnu,Admin,KT-1@KT.com,,Password@123,KLBG,KT001,2005-11-24T00:00:00.000Z,9873746073,09f3e4c1-6b2a-4d8e-9c7f-1a5d3b6e0c92,2020-10-25T00:00:00.000Z,KT-1@KT.com,,
+1b2a3c4d-5e6f-7b8a-9c0d-1e2f3b4a5c6d,Shahrukh,Employee,KT-2@KT.com,,Password@123,KLBG,KT001,2012-04-25T00:00:00.000Z,9873746071,3d2b7a0f-5c4e-4f1d-b8a9-076e5d4c3b2a,2003-05-25T00:00:00.000Z,KT-2@KT.com,,
+a5b6c7d8-e9f0-1a2b-3c4d-5e6f7a8b9c0d,Dorah,Manager,KT-3@KT.com,,Password@123,KLBG,KT001,2017-05-26T00:00:00.000Z,9873746033,6a5c1d0b-9e8f-4a3c-7b6d-2f1e0c9a8b76,2011-10-25T00:00:00.000Z,KT-3@KT.com,,
+3d4c5b6a-7e8f-9d0c-1b2a-3e4f5d6c7b8a,Preeti,Employee,KT-4@KT.com,,Password@123,KLBG,KT001,2002-08-08T00:00:00.000Z,9873746070,9c8e7b6a-5d4f-3e2c-1b0a-f9e8d7c6b5a4,2008-11-07T00:00:00.000Z,KT-4@KT.com,,
+6e7f8a9b-0c1d-2e3f-4a5b-6c7d8e9f0a1b,Vikas,Customer,Vikas@gmail.com,,Customer@123,,,2002-08-08T00:00:00.000Z,9965438738,6c7d8e9f-0a1b-2c3d-4e5f-6a7b8c9d0e1f,2008-11-07T00:00:00.000Z,Vikas@gmail.com,,
+b0a1c2d3-e4f5-6b7a-8d9c-0f1e2d3c4b5a,Mateen,Customer,Mateen@gmail.com,,Customer@123,,,2002-08-08T00:00:00.000Z,9008130100,1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d,2008-11-07T00:00:00.000Z,Mateen@gmail.com,,
+2c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f,Datti,Customer,Datti@gmail.com,,Customer@123,,,2002-08-08T00:00:00.000Z,7654309821,9d8c7b6a-5f4e-3d2c-1b0a-9f8e7d6c5b4a,2008-11-07T00:00:00.000Z,Datti@gmail.com,,
+f4e5d6c7-b8a9-0f1e-2d3c-4b5a6f7e8d9c,Shivang,Customer,Shivang@gmail.com,,Customer@123,,,2002-08-08T00:00:00.000Z,9828394840,4e5f6d7c-8b9a-0f1e-2d3c-4b5a6f7e8d9c,2008-11-07T00:00:00.000Z,Shivang@gmail.com,,
+7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d,Amit,Customer,Amit@gmail.com,,Customer@123,,,2002-08-08T00:00:00.000Z,7481629259,8b9a0c1d-2e3f-4b5a-6c7d-8e9f0a1b2c3d,2008-11-07T00:00:00.000Z,Amit@gmail.com,,

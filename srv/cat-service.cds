@@ -11,5 +11,10 @@ service CatalogService {
     entity Payment          as projection on my.Payment;
     entity CustomerDocument as projection on my.CustomerDocument;
     entity Login            as projection on my.Login;
-    entity Transaction as projection on my.Transaction;
+    entity Transaction      as projection on my.Transaction;
+
+    //Action
+
+    action uploadImage(ID: UUID,imageData: String);
+     action deleteAllRooms() returns String;
 }

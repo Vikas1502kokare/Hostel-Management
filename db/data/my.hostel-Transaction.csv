@@ -1,0 +1,6 @@
+ID,BookingID_BookingID,RoomNo_ID,NumberPerson,TransactionFlag,createdAt,createdBy,modifiedAt,modifiedBy
+a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6e,7b6c5d4e-3f2a-1b0c-9d8e-7f6a5b4c3d2e,478f448b-302a-43e5-8a21-72993888b1d9,2,TRUE,2013-06-16T00:00:00.000Z,KT-1@KT.com,,
+c5d4e3f2-a1b0-9c8d-7e6f-5d4c3b2a1e1f,a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d,c8e6a10d-5f40-4c3e-9b2f-17855364e5f7,55,FALSE,2015-08-23T00:00:00.000Z,KT-2@KT.com,,
+e9f8a7b6-d5c4-3e2f-1a0b-9c8d7e6f5a5b,c5d4e3f2-a1b0-9c8d-7e6f-5d4c3b2a1e0f,104c3e80-d6b9-46f3-a7c8-92003507c8a4,9,TRUE,2013-04-02T00:00:00.000Z,KT-3@KT.com,,
+1f2e3d4c-5b6a-7f8e-9d0c-1b2a3f4e5d7c,e9f8a7b6-d5c4-3e2f-1a0b-9c8d7e6f5a4b,e6b7d19c-0a2f-48e0-a543-294b6d05f3c1,1,FALSE,2019-09-11T00:00:00.000Z,KT-4@KT.com,,
+9f8e7d6c-5b4a-3f2e-1d0c-9b8a7f6e5d5c,1f2e3d4c-5b6a-7f8e-9d0c-1b2a3f4e5d6c,5d9f1b4a-8c7e-4d62-b13c-045a279e8f63,3,TRUE,,,,

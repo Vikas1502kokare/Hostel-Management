@@ -8,6 +8,7 @@
     <Page
         id="page"
         title="Kalpavriksha Hostel"
+        showHeader="false"
     >
         <!-- === TOP BAR === -->
         <Bar class="customBar">
@@ -47,10 +48,12 @@
                     <Button
                         text="Login"
                         type="Emphasized"
+                        press="LoginPage"
                     />
                     <Button
                         text="Signup"
                         class="sapUiTinyMarginBegin"
+                         press="SigninPage"
                     />
                 </HBox>
             </contentRight>
@@ -59,7 +62,7 @@
         <content>
             <Carousel
                 id="myCarousel"
-                height="350px"
+                height="500px"
                 loop="true"
                 showPageIndicator="true"
                 class="customCarousel"
@@ -68,13 +71,82 @@
                 <VBox
                     alignItems="Center"
                     justifyContent="Center"
-                    width="auto"
-                    height="auto"
+                    class="sapUiLargeMarginTop sapUiLargeMarginBottom responsive-card-container"
+                >
+                    <Panel
+                        width="90%"
+                        class="responsive-panel"
+                    >
+                        <headerToolbar>
+                            <Toolbar class="responsive-toolbar">
+                                <Title
+                                    text="Hot Water Service"
+                                    level="H2"
+                                    class="service-title"
+                                />
+                                <ToolbarSpacer />
+                                <ObjectStatus
+                                    text="24/7 Available"
+                                    state="Success"
+                                    class="status-indicator"
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+
+                        <HBox
+                            direction="{= ${device>/system/phone} ? 'Column' : 'Row'}"
+                            justifyContent="SpaceBetween"
+                            alignItems="Stretch"
+                            class="responsive-content"
+                        >
+                            <!-- Column 1: Big Image -->
+                            <VBox
+                                width="{= ${device>/system/phone} ? '100%' : '55%'}"
+                                class="sapUiSmallMargin image-section"
+                            >
+                                <Image
+                                    src="images/food.jpg"
+                                    width="100%"
+                                    height="100%"
+                                    class="big-image"
+                                    densityAware="false"
+                                />
+                            </VBox>
+
+                            <!-- Column 2: Description -->
+                            <VBox
+                                width="{= ${device>/system/phone} ? '100%' : '40%'}"
+                                class="sapUiSmallMargin description-section"
+                            >
+                                <Text
+                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                        Our hostel provides reliable geysers and water heaters in every washroom.
+                        Perfect for refreshing morning showers and relaxing evenings.
+                        Regular maintenance ensures consistent temperature and hygiene.
+                        Stay warm and comfortable all year round with our trusted hot water service."
+                                    wrapping="true"
+                                    class="responsive-text"
+                                />
+                                <Button
+                                    text="Learn More"
+                                    type="Emphasized"
+                                    class="sapUiSmallMarginTop action-button"
+                                    press="onLearnMore"
+                                />
+                            </VBox>
+                        </HBox>
+                    </Panel>
+                </VBox>
+
+                <!-- Card 2 -->
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
                     class="sapUiLargeMarginTop sapUiLargeMarginBottom"
                 >
                     <Panel
                         width="auto"
-                        height="auto"
+                        height="400px"
                         class="classofmargin"
                     >
                         <headerToolbar>
@@ -95,9 +167,9 @@
                                 class="sapUiSmallMarginEnd"
                             >
                                 <Image
-                                    src="images/hostelimage1.jpg"
+                                    src="images/laundry.jpg"
                                     width="100%"
-                                    height="40%"
+                                    height="20rem"
                                 />
                             </VBox>
 
@@ -111,58 +183,8 @@
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
-                                    Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                />
-                            </VBox>
-                        </HBox>
-                    </Panel>
-                </VBox>
-
-                <!-- Card 2 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    width="auto"
-                    height="auto"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
-                >
-                    <Panel
-                        width="auto"
-                        height="auto"
-                        class="classofmargin"
-                    >
-                        <headerToolbar>
-                            <Toolbar>
-                                <Title
-                                    text="Hot Water Service"
-                                    level=""
-                                />
-                                <Text
-                                    text=""
-                                    class=""
-                                />
-                            </Toolbar>
-                        </headerToolbar>
-                        <HBox>
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginEnd"
-                            >
-                                <Image
-                                    src="images/hostelimage1.jpg"
-                                    width="100%"
-                                    height="40%"
-                                />
-                            </VBox>
-
-                            <!-- Column 2: Description -->
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginBegin"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Stay warm and comfortable all year round with our trusted hot water service.
+                                    Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -178,13 +200,11 @@
                 <VBox
                     alignItems="Center"
                     justifyContent="Center"
-                    width="auto"
-                    height="auto"
                     class="sapUiLargeMarginTop sapUiLargeMarginBottom"
                 >
                     <Panel
                         width="auto"
-                        height="auto"
+                        height="400px"
                         class="classofmargin"
                     >
                         <headerToolbar>
@@ -205,9 +225,9 @@
                                 class="sapUiSmallMarginEnd"
                             >
                                 <Image
-                                    src="images/hostelimage1.jpg"
+                                    src="images/wifi.jpg"
                                     width="100%"
-                                    height="40%"
+                                    height="20rem"
                                 />
                             </VBox>
 
@@ -218,6 +238,11 @@
                             >
                                 <Text
                                     text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service.
+                                    Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -233,13 +258,11 @@
                 <VBox
                     alignItems="Center"
                     justifyContent="Center"
-                    width="auto"
-                    height="auto"
                     class="sapUiLargeMarginTop sapUiLargeMarginBottom"
                 >
                     <Panel
                         width="auto"
-                        height="auto"
+                        height="400px"
                         class="classofmargin"
                     >
                         <headerToolbar>
@@ -260,9 +283,9 @@
                                 class="sapUiSmallMarginEnd"
                             >
                                 <Image
-                                    src="images/hostelimage1.jpg"
+                                    src="images/garden.jpg"
                                     width="100%"
-                                    height="40%"
+                                    height="20rem"
                                 />
                             </VBox>
 
@@ -273,6 +296,11 @@
                             >
                                 <Text
                                     text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service.
+                                    Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -288,13 +316,11 @@
                 <VBox
                     alignItems="Center"
                     justifyContent="Center"
-                    width="auto"
-                    height="auto"
                     class="sapUiLargeMarginTop sapUiLargeMarginBottom"
                 >
                     <Panel
                         width="auto"
-                        height="auto"
+                        height="400px"
                         class="classofmargin"
                     >
                         <headerToolbar>
@@ -317,7 +343,7 @@
                                 <Image
                                     src="images/hostelimage1.jpg"
                                     width="100%"
-                                    height="40%"
+                                    height="20rem"
                                 />
                             </VBox>
 
@@ -328,6 +354,11 @@
                             >
                                 <Text
                                     text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                                    Our hostel provides reliable geysers and water heaters in every washroom.
+                                    Perfect for refreshing morning showers and relaxing evenings.
+                                    Regular maintenance ensures consistent temperature and hygiene.
+                                    Stay warm and comfortable all year round with our trusted hot water service.
+                                    Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -342,162 +373,73 @@
         </content>
 
         <Panel
+            headerText="Room Details"
             width="100%"
             class="sapUiSmallMargin"
-            headerText="Our Rooms"
         >
             <HBox
+                items="{roomsModel>/}"
+                wrap="Wrap"
                 justifyContent="Center"
-                alignItems="Center"
-                wrap="true"
+                class="sapUiSmallMargin"
             >
-                <!-- Card 1 -->
-                <Panel
-                    width="auto"
-                    height="auto"
-                    class="sapUiSmallMargin"
+                <VBox
+                    class="sapUiSmallMargin sapUiSmallPadding sapUiContentPadding customCard"
+                    width="30%"
+                    alignItems="Center"
+                    justifyContent="SpaceBetween"
+                    direction="Column"
+                    press=".onRoomPress"
                 >
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title
-                                text="Sharable Rooms"
-                                level=""
-                            />
-                            <Text
-                                text=""
-                                class=""
-                            />
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox>
+                    <!-- Image Section -->
+                    <VBox
+                        alignItems="Center"
+                        width="100%"
+                    >
                         <Image
-                            src="images/hostelimage1.jpg"
+                            src="{roomsModel>imageSrc}"
                             width="100%"
-                            height="150px"
-                        />
-                        <Text
-                            text="Keep your clothes clean and fresh with our reliable laundry service. Fast, convenient, and hassle-free for all hostel residents."
+                            height="180px"
+                            densityAware="false"
+                            class="sapUiSmallMarginBottom"
+                            press="SeeDetails"
                         />
                     </VBox>
-                </Panel>
 
-                <!-- Card 2 -->
-                <Panel
-                    width="auto"
-                    height="auto"
-                    class="sapUiSmallMargin"
-                >
-                    <headerToolbar>
-                        <Toolbar>
+                    <!-- Content Section -->
+                    <VBox
+                        alignItems="Center"
+                        width="100%"
+                        justifyContent="SpaceBetween"
+                        class="sapUiSmallMarginTop"
+                    >
+                        <VBox
+                            alignItems="Center"
+                            class="sapUiTinyMarginBottom"
+                        >
                             <Title
-                                text="NON-AC Rooms"
-                                level=""
+                                text="{roomsModel>AC_type}"
+                                level="H3"
+                                class="sapUiTinyMarginBottom"
+                                titleStyle="H3"
                             />
-                            <Text
-                                text=""
-                                class=""
+                            <ObjectNumber
+                                number="₹{roomsModel>Price}"
+                                unit="per night"
+                                state="Success"
+                                class="sapUiSmallMarginBottom"
                             />
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox>
-                        <Image
-                            src="images/hostelimg2.jpg"
-                            width="100%"
-                            height="150px"
-                        />
-                        <Text
-                            text="Enjoy delicious and hygienic meals prepared daily for our residents. Fresh, tasty, and convenient dining right at your hostel."
-                        />
-                    </VBox>
-                </Panel>
+                        </VBox>
 
-                <!-- Card 3 -->
-                <Panel
-                    width="auto"
-                    height="auto"
-                    class="sapUiSmallMargin"
-                >
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title
-                                text="AC Sharable Rooms"
-                                level=""
-                            />
-                            <Text
-                                text=""
-                                class=""
-                            />
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox>
-                        <Image
-                            src="images/hostelimg3.jpg"
-                            width="100%"
-                            height="150px"
-                        />
                         <Text
-                            text="Stay connected with high-speed WiFi throughout the hostel. Fast, reliable, and available for all residents anytime."
+                            text="{roomsModel>description}"
+                            wrapping="true"
+                            class="sapUiSmallMarginTop sapUiSmallMarginBottom description-text"
+                            width="100%"
+                            maxLines="3"
                         />
                     </VBox>
-                </Panel>
-
-                <!-- Card 4 -->
-                <!-- <Panel
-                    width="250px"
-                    class="sapUiSmallMargin"
-                >
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title
-                                text="Common Rooms"
-                                level=""
-                            />
-                            <Text
-                                text=""
-                                class=""
-                            />
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox>
-                        <Image
-                            src="images/hostelimg4.jpg"
-                            width="100%"
-                            height="150px"
-                        />
-                        <Text
-                            text="Experience comfort and convenience with our prompt room service. Fresh meals, essentials, and assistance delivered right to your door."
-                        />
-                    </VBox>
-                </Panel> -->
-
-                <!-- Card 5 -->
-                <!-- <Panel
-                    width="250px"
-                    class="sapUiSmallMargin"
-                >
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title
-                                text="Function Rooms"
-                                level=""
-                            />
-                            <Text
-                                text=""
-                                class=""
-                            />
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox>
-                        <Image
-                            src="images/functionroom.jpg"
-                            width="100%"
-                            height="150px"
-                        />
-                        <Text
-                            text="Relax and unwind in our beautifully maintained hostel garden. A peaceful green space to refresh your mind and enjoy nature."
-                        />
-                    </VBox>
-                </Panel> -->
+                </VBox>
             </HBox>
         </Panel>
 
@@ -505,7 +447,10 @@
             <OverflowToolbar>
                 <Text text="@KALPAVRIKSHA HOSTEL" />
                 <ToolbarSpacer />
-                <Button text="BOOK ROOM" />
+                <Button
+                    text="BOOK ROOM"
+                    press="onNavigateToBooking"
+                />
             </OverflowToolbar>
         </footer>
     </Page>

@@ -1,0 +1,6 @@
+PriceID,Type,PaymentName,Price,Currency,createdAt,createdBy,modifiedAt,modifiedBy
+9f8e7d6c-5b4a-3f2e-1d0c-9b8a7f6e5d4c,VEG,Food,300,INR,2010-09-30T00:00:00.000Z,Vikas@gmail.com,,
+3e2d1c0b-4a5f-6e7d-8c9b-0a1f2e3d4c5b,NON-VEG,Food,400,INR,2023-12-24T00:00:00.000Z,Mateen@gmail.com,,
+7c6b5a4f-3e2d-1c0b-9a8f-7e6d5c4b3a2f,PENALTY,penalty,100,INR,2008-02-05T00:00:00.000Z,KT-2@KT.com,,
+b2a3c4d5-e6f7-8b9a-0c1d-2e3f4b5a6c7d,LAUNDRY,utility,150,INR,2008-07-14T00:00:00.000Z,KT-3@KT.com,,
+f6e7d8c9-b0a1-2f3e-4d5c-6b7a8f9e0d1c,TAXI,service,300,INR,2014-12-23T00:00:00.000Z,Amit@gmail.com,,

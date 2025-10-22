@@ -1,16 +1,21 @@
 /* Enter your custom styles here */
 
 .customBar {
-    height: 200px; /* Increases the height of the Bar */
+    height: 200px;
+    /* Increases the height of the Bar */
     padding: 10px;
-    background-color: #f8f9fa; /* Optional: light background */
+    background-color: #f8f9fa;
+    /* Optional: light background */
     align-items: center;
 }
 
 .circleImage {
-    border-radius: 100%; /* Makes the image circular */
-    object-fit: cover;  /* Ensures the image scales properly */
-    border: 2px solid #ccc; /* Optional border */
+    border-radius: 100%;
+    /* Makes the image circular */
+    object-fit: cover;
+    /* Ensures the image scales properly */
+    border: 2px solid #ccc;
+    /* Optional border */
 }
 
 .sapMPanelHeader {
@@ -18,7 +23,261 @@
     box-shadow: none !important;
 }
 
-.classofmargin{
-    margin-left: 50px;  
+.classofmargin {
+    margin-left: 50px;
     margin-right: 50px;
+}
+
+/*/////////////////////////////////*/
+
+/* Enter your custom styles here */
+
+.customBar {
+    height: 200px;
+    /* Increases the height of the Bar */
+    padding: 10px;
+    background-color: #f8f9fa;
+    /* Optional: light background */
+    align-items: center;
+}
+
+.circleImage {
+    border-radius: 100%;
+    /* Makes the image circular */
+    object-fit: cover;
+    /* Ensures the image scales properly */
+    border: 2px solid #ccc;
+    /* Optional border */
+}
+
+.sapMPanelHeader {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.classofmargin {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Responsive container */
+.responsive-card-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Responsive panel */
+.responsive-panel {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+}
+
+/* Header styling */
+.responsive-toolbar {
+    background: transparent !important;
+    border-bottom: 1px solid #e0e0e0;
+    min-height: 48px !important;
+}
+
+.service-title {
+    color: #32363a;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.status-indicator {
+    font-size: 0.875rem;
+}
+
+/* Content layout */
+.responsive-content {
+    padding: 1rem 0;
+    height: auto !important;
+    min-height: 400px !important;
+    /* Minimum height for big image */
+    max-height: none !important;
+}
+
+/* Image section for big image */
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    /* Changed to stretch */
+    min-height: 350px;
+    /* Ensure minimum height */
+}
+
+/* Big image styling */
+.big-image {
+    border-radius: 12px;
+    object-fit: cover;
+    /* This ensures image fills container without distortion */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100% !important;
+    height: 100% !important;
+    /* Take full height of container */
+    min-height: 150px;
+    /* Minimum height */
+}
+
+/* Description section */
+.description-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+}
+
+/* Text styling */
+.responsive-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    text-align: justify;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    margin: 0;
+    padding: 0;
+}
+
+.action-button {
+    align-self: flex-start;
+    margin-top: 1rem;
+}
+
+/* Mobile First Responsive Design */
+
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .responsive-panel {
+        width: 80%;
+    }
+
+    .responsive-text {
+        font-size: 1.1rem;
+    }
+
+    .responsive-content {
+        min-height: 450px !important;
+        /* Even bigger on large screens */
+    }
+
+    .big-image {
+        min-height: 400px;
+    }
+}
+
+/* Medium devices (tablets, 768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .responsive-panel {
+        width: 90%;
+    }
+
+    .responsive-content {
+        min-height: 380px !important;
+    }
+
+    .big-image {
+        min-height: 330px;
+    }
+}
+
+/* Small devices (landscape phones, 576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .responsive-panel {
+        width: 95%;
+    }
+
+    .service-title {
+        font-size: 1.3rem;
+    }
+
+    .responsive-text {
+        font-size: 0.95rem;
+    }
+
+    .responsive-content {
+        min-height: 350px !important;
+    }
+
+    .big-image {
+        min-height: 250px;
+        height: 250px !important;
+        /* Fixed height on mobile */
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .responsive-card-container {
+        padding: 0.5rem;
+    }
+
+    .responsive-panel {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .service-title {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .responsive-toolbar {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+    }
+
+    .responsive-content {
+        gap: 1rem;
+        min-height: 300px !important;
+    }
+
+    .image-section,
+    .description-section {
+        margin: 0.5rem 0 !important;
+        width: 100% !important;
+    }
+
+    .image-section {
+        min-height: 200px;
+    }
+
+    .big-image {
+        min-height: 200px;
+        height: 200px !important;
+        /* Fixed height on small mobile */
+        border-radius: 8px;
+    }
+
+    .responsive-text {
+        font-size: 0.9rem;
+        text-align: left;
+    }
+
+    .action-button {
+        align-self: center;
+        width: 100%;
+    }
+}
+
+/* .sapMWizardStep {
+    background-color: rgb(244, 68, 68);
+} */
+
+.sapUiSmallMarginTop{
+    margin: 0rem
 }

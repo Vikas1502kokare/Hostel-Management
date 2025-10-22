@@ -17,11 +17,11 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/catalog/",
+        "uri": "/odata/v2/catalog/",
         "type": "OData",
         "settings": {
           "annotations": [],
-          "odataVersion": "4.0"
+          "odataVersion": "2.0"
         }
       }
     }
@@ -98,12 +98,34 @@
           "target": [
             "TargetView1"
           ]
+        },
+        {
+          "name": "BookingPage",
+          "pattern": "BookingPage",
+          "target": [
+            "BookingPage"
+          ]
+        },
+        {
+          "name": "Login",
+          "pattern": "Login",
+          "target": [
+            "Login"
+          ]
         }
       ],
       "targets": {
         "TargetView1": {
           "id": "View1",
           "name": "View1"
+        },
+        "BookingPage": {
+          "id": "BookingPage",
+          "name": "BookingPage"
+        },
+        "Login": {
+          "id": "Login",
+          "name": "Login"
         }
       }
     },

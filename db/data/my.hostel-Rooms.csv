@@ -1,0 +1,7 @@
+ID,RoomNo,BedTypes,Price,AC_type,Shareble,Currency,NoOfPersons,BranchCode,CompanyCode,roomPhotos,BookingFlag,description
+478f448b-302a-43e5-8a21-72993888b1d9,No-A1,Single,1000,YES,FALSE,INR,1,KLBG,KT001,room_photos-5372058,TRUE,Description 1
+c8e6a10d-5f40-4c3e-9b2f-17855364e5f7,No-A2,Double,3000,YES,TRUE,INR,2,KLBG,KT001,room_photos-5372060,FALSE,Description 2
+104c3e80-d6b9-46f3-a7c8-92003507c8a4,No-A3,Double,3000,YES,TRUE,INR,2,KLBG,KT001,room_photos-5372061,TRUE,Description 3
+e6b7d19c-0a2f-48e0-a543-294b6d05f3c1,No-N3,Single,1000,NO,FALSE,INR,1,KLBG,KT001,room_photos-5372063,FALSE,Description 4
+5d9f1b4a-8c7e-4d62-b13c-045a279e8f63,No-N2,Double,2500,NO,TRUE,INR,2,NYC,KT002,room_photos-5372062,TRUE,Description 5
+b3c8f7e2-4d1a-40b9-9a7c-526e3d1f0a98,No-N1,Single,1500,NO,FALSE,INR,1,NYC,KT002,room_photos-5372059,FALSE,Description 6
