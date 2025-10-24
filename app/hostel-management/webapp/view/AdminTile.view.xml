@@ -1,0 +1,74 @@
+<mvc:View
+    controllerName="hostel.com.hostelmanagement.controller.AdminTile"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+>
+    
+      <Page >
+      <content>
+
+ <FlexBox
+                justifyContent="Center"
+                wrap="Wrap"
+                alignItems="Start"
+                fitContainer="true"
+                class="sapUiSmallMargin"
+            >
+                <GenericTile
+                    header="Manage Hostel Rooms"
+                    subheader="Active Rooms"
+                    press=".onTilePressRooms"
+                    class="sapUiTinyMargin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="24"
+                            icon="sap-icon://home"
+                            valueColor="Good"
+                            scale="Rooms"
+                        />
+                    </TileContent>
+                </GenericTile>
+
+                <!-- <GenericTile
+                    header="Student Management"
+                    subheader="Registered Students"
+                    press=".onTilePressStudents"
+                    class="sapUiTinyMargin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="120"
+                            icon="sap-icon://employee"
+                            valueColor="Neutral"
+                            scale="Students"
+                        />
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile
+                    header="Fee Collection"
+                    subheader="Monthly Summary"
+                    press=".onTilePressFees"
+                    class="sapUiTinyMargin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="₹1.2L"
+                            icon="sap-icon://money-bills"
+                            valueColor="Good"
+                        />
+                    </TileContent>
+                </GenericTile> -->
+            </FlexBox>
+
+
+      </content>
+      </Page>
+
+</mvc:View>

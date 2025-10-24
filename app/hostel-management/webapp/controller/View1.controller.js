@@ -55,6 +55,9 @@ sap.ui.define([
         SeeDetails: function (oEvent) {
             this.getOwnerComponent().getRouter().navTo("BookingPage");
         },
+        OnAdminTile: function (oEvent) {
+            this.getOwnerComponent().getRouter().navTo("AdminTile");
+        },
 
         LoginPage: function () {
             this.getOwnerComponent().getRouter().navTo("Login");

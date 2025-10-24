@@ -43,7 +43,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.141.1",
       "libs": {
@@ -106,6 +106,20 @@
             "BookingPage"
           ]
         },
+                {
+          "name": "RoomsDetails",
+          "pattern": "RoomsDetails",
+          "target": [
+            "RoomsDetails"
+          ]
+        },
+        {
+          "name": "AdminTile",
+          "pattern": "AdminTile",
+          "target": [
+            "AdminTile"
+          ]
+        },
         {
           "name": "Login",
           "pattern": "Login",
@@ -122,6 +136,14 @@
         "BookingPage": {
           "id": "BookingPage",
           "name": "BookingPage"
+        },
+        "RoomsDetails": {
+          "id": "RoomsDetails",
+          "name": "RoomsDetails"
+        },
+        "AdminTile": {
+          "id": "AdminTile",
+          "name": "AdminTile"
         },
         "Login": {
           "id": "Login",

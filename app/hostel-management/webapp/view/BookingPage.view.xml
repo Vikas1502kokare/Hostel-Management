@@ -49,6 +49,7 @@
                                         id="roomTypeCombo"
                                         width="200px"
                                         selectionChange=".onRoomTypeSelect"
+                                        showSecondaryValues="true"
                                         items="{
                                                     path: 'roomsModel>/',
                                                     templateShareable: false
@@ -57,7 +58,8 @@
                                         <items>
                                             <core:ListItem
                                                 key="{roomsModel>AC_type}"
-                                                text="{roomsModel>AC_type}"
+                                                text="{roomsModel>AC_type}" 
+                                                additionalText="{roomsModel>BedTypes}"
                                             />
                                         </items>
                                     </ComboBox>

@@ -14,7 +14,6 @@ service CatalogService {
     entity Transaction      as projection on my.Transaction;
 
     //Action
-
-    action uploadImage(ID: UUID,imageData: String);
-     action deleteAllRooms() returns String;
+     action uploadImage(ID: UUID,imageData: String);
+    action deleteAllRooms() returns String;
 }

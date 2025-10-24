@@ -33,6 +33,10 @@
 
             <contentRight>
                 <Button
+                    text="Admin"
+                    class="sapUiLargeMarginEnd"
+                    press="OnAdminTile"
+                />    <Button
                     text="Home"
                     class="sapUiLargeMarginEnd"
                 />

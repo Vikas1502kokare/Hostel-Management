@@ -26,10 +26,23 @@
   },
   "private": true,
   "cds": {
+    "odata": {
+      "impl": "@sap/cds/libx/odata",
+      "maxBodySize": "50mb"
+    },
+    "app": {
+      "json": {
+        "limit": "50mb"
+      }
+    },
+    "db": {
+      "timeout": 600000
+    },
     "requires": {
       "[production]": {
         "auth": "xsuaa"
       },
+      "db": "hana",
       "connectivity": true,
       "destinations": true,
       "html5-repo": true

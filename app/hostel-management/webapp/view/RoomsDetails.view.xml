@@ -1,0 +1,117 @@
+<mvc:View
+    controllerName="hostel.com.hostelmanagement.controller.RoomsDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+>
+    <Page title="Rooms Details">
+        <content>
+            <ScrollContainer
+                width="100%"
+                height="100%"
+                horizontal="true"
+                vertical="true"
+                focusable="true"
+                class="sapUiNoContentPadding"
+            >
+               <Table
+    id="roomsTable"
+    inset="false"
+    items="{roomsModel>/}"
+    growing="true"
+    growingScrollToLoad="true"
+    class="sapUiResponsiveMargin"
+    width="auto"
+    mode="SingleSelectMaster"  selectionChange=".onSelectionChange" >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="Hostel Room List"
+                                level="H2"
+                            />
+                            <ToolbarSpacer />
+                            <Button
+                                text="Add Rooms"
+                                press=".onAddRooms"
+                            />
+                          <Button
+    text="Edit Rooms"
+    press=".onEditRoom"
+    enabled="{viewProperties>/isRoomSelected}" />
+<Button
+    text="Delete Rooms"
+    press=".onDeleteRooms"
+    enabled="{viewProperties>/isRoomSelected}" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <columns>
+                        <Column>
+                            <Text text="Branck Code" />
+                        </Column>
+                        <Column>
+                            <Text text="Company Code" />
+                        </Column>
+                        <Column>
+                            <Text text="Room No" />
+                        </Column>
+                        <Column>
+                            <Text text="Type" />
+                        </Column>
+                        <Column>
+                            <Text text="Price (INR)" />
+                        </Column>
+                        <Column>
+                            <Text text="AC Type" />
+                        </Column>
+                        <Column>
+                            <Text text="No. of Persons" />
+                        </Column>
+                        <Column>
+                            <Text text="Sharable" />
+                        </Column>
+                        <Column>
+                            <Text text="Booking" />
+                        </Column>
+                        <Column>
+                            <Text text="Currency" />
+                        </Column>
+                        <Column>
+                            <Text text="Photo" />
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{roomsModel>BranchCode}" />
+                                <Text text="{roomsModel>CompanyCode}" />
+                                <Text text="{roomsModel>RoomNo}" />
+                                <Text text="{roomsModel>BedTypes}" />
+                                <Text text="{roomsModel>Price}" />
+                                <Text text="{roomsModel>AC_type}" />
+                                <Text text="{roomsModel>NoOfPersons}" />
+                                <Text
+                                    text="{= ${roomsModel>Shareble} ? 'Yes' : 'No'}"
+                                />
+                                <ObjectStatus
+                                    text="{= ${roomsModel>BookingFlag} ? 'Booked' : 'Available'}"
+                                    state="{= ${roomsModel>BookingFlag} ? 'Error' : 'Success'}"
+                                />
+                                <Text text="{roomsModel>Currency}" />
+                                <Image
+                                    src="{roomsModel>imageSrc}"
+                                    width="80px"
+                                    height="60px"
+                                    decorative="false"
+                                    densityAware="false"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </ScrollContainer>
+        </content>
+    </Page>
+</mvc:View>
