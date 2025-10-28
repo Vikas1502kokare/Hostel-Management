@@ -15,6 +15,7 @@ sap.ui.define(
         onInit: function () {
           const oView = this.getView();
 
+          // View Models define karein
           oView.setModel(new JSONModel({ tokens: [] }), "tokenModel");
           oView.setModel(
             new JSONModel({ File: "", FileName: "", FileType: "" }),
@@ -24,8 +25,65 @@ sap.ui.define(
             new JSONModel({ selectedRoom: {}, busy: false, hasData: false }),
             "viewModel"
           );
+
+          // 🔹 'local' model ko empty define karein
+          oView.setModel(new JSONModel({ CompanyCodes: [] }), "local");
+
+          // 🔹 Backend se Company Codes fetch karein
+          this._fetchUniqueCompanyCodes();
         },
 
+        // -------------------------------------------------------------
+        // 🔹 Naya Private Function: Unique Codes Fetch karna
+        // -------------------------------------------------------------
+        _fetchUniqueCompanyCodes: function () {
+          const oModel = this.getOwnerComponent().getModel(); // Aapka OData Model
+          const oLocalModel = this.getView().getModel("local");
+          const sEntitySet = "/Rooms"; // Entity Set jismein Company Code hai
+
+          if (!oModel) {
+            console.error("OData model is not available.");
+            return;
+          }
+
+          // 💡 Best Practice: Sirf zaroori field select karein ($select)
+          // Distinct values ke liye koi standard OData V2 operator nahi hai,
+          // isliye hum saara data fetch karke client-side par filter karenge.
+
+          oModel.read(sEntitySet, {
+            // Sirf CompanyCode field laane ki koshish (performance ke liye)
+            urlParameters: {
+              $select: "CompanyCode",
+            },
+            success: (oData) => {
+              // Data milne par
+              const aResults = oData.results;
+
+              // 1. Unique Company Codes ka Set banayein
+              const aUniqueCodes = [
+                ...new Set(aResults.map((item) => item.CompanyCode)),
+              ];
+
+              // 2. ComboBox ke format mein object array banayein
+              const aFormattedCodes = aUniqueCodes.map((code) => ({
+                CompanyCode: code, // Property name wahi rakhein jo XML mein use kiya hai
+              }));
+
+              // 3. 'local' model mein set karein, jisse ComboBox update ho jaye
+              oLocalModel.setProperty("/CompanyCodes", aFormattedCodes);
+
+              MessageToast.show(
+                `Fetched ${aFormattedCodes.length} unique Company Codes.`
+              );
+            },
+            error: (oError) => {
+              MessageBox.error(
+                "Company Codes fetch nahi ho paye: " + oError.responseText
+              );
+              console.error("Read failed:", oError);
+            },
+          });
+        },
         onRoomSelect: function (oEvent) {
           const oTable = oEvent.getSource();
           const oSelectedItem = oTable.getSelectedItem();
@@ -164,41 +222,58 @@ sap.ui.define(
          *  FILE HANDLING
          *  ---------------------------------------------------------------- */
         onFileChange: function (oEvent) {
-          const oFile = oEvent.getParameter("files")[0];
-          if (!oFile) return MessageToast.show("No file selected");
-
-          if (oFile.size > 5 * 1024 * 1024) {
-            return this._showFileError("File size must be under 5 MB.");
+          const oFile = oEvent.getParameter("files")?.[0];
+          if (!oFile) {
+            MessageToast.show("No file selected");
+            return;
           }
 
-          const allowed = ["image/jpeg", "image/png", "image/gif"];
-          if (!allowed.includes(oFile.type)) {
+          // File validation
+          const MAX_SIZE_MB = 5;
+          const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif"];
+
+          if (oFile.size > MAX_SIZE_MB * 1024 * 1024) {
+            return this._showFileError(
+              `File size must be under ${MAX_SIZE_MB} MB.`
+            );
+          }
+
+          if (!ALLOWED_TYPES.includes(oFile.type)) {
             return this._showFileError(
               "Invalid file type. Use JPG, PNG, or GIF."
             );
           }
 
+          // Read file as Base64
           const reader = new FileReader();
           reader.onload = (e) => {
-            const base64 = e.target.result.split(",")[1];
-            this.getView().getModel("UploadModel").setData({
-              File: base64,
-              FileName: oFile.name,
-              FileType: oFile.type,
-            });
+            try {
+              const base64 = e.target.result.split(",")[1];
+              const oUploadModel = this.getView().getModel("UploadModel");
+              const oTokenModel = this.getView().getModel("tokenModel");
 
-            this.getView()
-              .getModel("tokenModel")
-              .setProperty("/tokens", [
-                {
-                  key: oFile.name,
-                  text: oFile.name,
-                },
+              oUploadModel.setData({
+                File: base64,
+                FileName: oFile.name,
+                FileType: oFile.type,
+              });
+
+              oTokenModel.setProperty("/tokens", [
+                { key: oFile.name, text: oFile.name },
               ]);
 
-            this._hideFileError();
-            MessageToast.show("File ready: " + oFile.name);
+              this._hideFileError();
+              MessageToast.show(`File ready: ${oFile.name}`);
+            } catch (err) {
+              this._showFileError("Error processing file. Please try again.");
+              console.error("File reading error:", err);
+            }
           };
+
+          reader.onerror = () => {
+            this._showFileError("Failed to read file. Please retry.");
+          };
+
           reader.readAsDataURL(oFile);
         },
 
@@ -297,7 +372,7 @@ sap.ui.define(
             if (!this._oPhotoDialog) {
               this._oPhotoDialog = new sap.m.Dialog({
                 title: "Room Photo",
-                contentWidth: "50%",
+                contentWidth: "75%",
                 content: [
                   new sap.m.Image({ width: "100%", densityAware: false }),
                 ],
@@ -315,6 +390,209 @@ sap.ui.define(
             console.error("Error fetching photo:", err);
             MessageToast.show("Failed to load image.");
           }
+        },
+
+        /////////////////////////////////////////////////////////////////////
+        onAddRoom: async function () {
+          const oView = this.getView();
+          const oVM = oView.getModel("viewModel");
+
+          oVM.setProperty("/dialogTitle", "Add Room");
+          oVM.setProperty("/formData", {
+            CompanyCode: "",
+            BranchCode: "",
+            RoomNo: "",
+            AC_type: "",
+            BedTypes: "",
+            Price: "",
+            NoOfPersons: 1,
+            Shareble: false,
+            BookingFlag: false,
+            description: "",
+            File: "",
+            FileType: "",
+          });
+
+          if (!this._oAddEditDialog) {
+            this._oAddEditDialog = await Fragment.load({
+              id: oView.getId(),
+              name: "hostel.com.hostelmanagement.fragments.AddEditRoom",
+              controller: this,
+            });
+            oView.addDependent(this._oAddEditDialog);
+          }
+
+          this._oAddEditDialog.open();
+        },
+
+        onEditRoom: async function () {
+          const oRoom = this.getView()
+            .getModel("viewModel")
+            .getProperty("/selectedRoom");
+          if (!oRoom) return MessageToast.show("Please select a room first.");
+
+          const oView = this.getView();
+          const oVM = oView.getModel("viewModel");
+
+          oVM.setProperty("/dialogTitle", "Edit Room");
+          oVM.setProperty("/formData", { ...oRoom, File: "", FileType: "" });
+
+          if (!this._oAddEditDialog) {
+            this._oAddEditDialog = await Fragment.load({
+              id: oView.getId(),
+              name: "hostel.com.hostelmanagement.fragments.AddEditRoom",
+              controller: this,
+            });
+            oView.addDependent(this._oAddEditDialog);
+          }
+
+          this._oAddEditDialog.open();
+        },
+
+        onCloseAddEditDialog: function () {
+          if (this._oAddEditDialog) {
+            this._oAddEditDialog.close();
+            setTimeout(() => {
+              this._oAddEditDialog.destroy(true);
+              this._oAddEditDialog = null;
+            }, 300);
+          }
+        },
+
+        onFileSelect: function (oEvent) {
+          const oFile = oEvent.getParameter("files")[0];
+          if (!oFile) return;
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const base64 = e.target.result.split(",")[1];
+            const oVM = this.getView().getModel("viewModel");
+            oVM.setProperty("/formData/File", base64);
+            oVM.setProperty("/formData/FileType", oFile.type);
+          };
+          reader.readAsDataURL(oFile);
+        },
+
+        onSaveRoom: async function () {
+          const oView = this.getView();
+          const oModel = this.getOwnerComponent().getModel();
+          const oForm = oView.getModel("viewModel").getProperty("/formData");
+          const isEdit = !!oForm.ID;
+
+          try {
+            oView.setBusy(true);
+            let savedRoom;
+
+            // 🔹 Clean payload — remove transient fields
+            const payload = { ...oForm };
+            delete payload.File;
+            delete payload.FileType;
+
+            if (isEdit) {
+              await new Promise((resolve, reject) => {
+                oModel.update(`/Rooms(${oForm.ID})`, payload, {
+                  success: () => resolve(),
+                  error: (err) => reject(err),
+                });
+              });
+              savedRoom = { ID: oForm.ID };
+              MessageToast.show("Room updated successfully.");
+            } else {
+              savedRoom = await new Promise((resolve, reject) => {
+                oModel.create("/Rooms", payload, {
+                  success: (data) => resolve(data?.d || data),
+                  error: (err) => reject(err),
+                });
+              });
+              MessageToast.show("Room added successfully.");
+            }
+
+            // 🔹 Separate image upload — only if present
+            if (oForm.File && oForm.FileType) {
+              // 💡 CSRF Token fetch karne ka standard SAP UI5 tareeka:
+              const csrfToken = oModel.getSecurityToken(); // Assuming oModel is the OData V2 model
+
+              const uploadRes = await fetch("/odata/v2/catalog/uploadImage", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-Token": csrfToken, // <-- Yeh line zaroori hai
+                },
+                body: JSON.stringify({
+                  ID: savedRoom.ID,
+                  imageData: `data:${oForm.FileType};base64,${oForm.File}`,
+                }),
+              });
+            }
+
+            // 🔹 Cleanup
+            this.onCloseAddEditDialog();
+            this._loadRoomsData();
+          } catch (err) {
+            console.error("Save failed:", err);
+            MessageBox.error("Failed to save room: " + err.message);
+          } finally {
+            oView.setBusy(false);
+          }
+        },
+
+        onFilterSearch: function () {
+          const oTable = this.byId("roomsTable");
+          const oBinding = oTable.getBinding("items");
+          const aFilters = [];
+
+          // 🔹 Collect filter values
+          const sCompany = this.byId("filterCompany").getSelectedKey();
+          const sBranch = this.byId("filterBranch").getValue().trim();
+          const sAC = this.byId("filterAC").getSelectedKey();
+          const sStatus = this.byId("filterStatus").getSelectedKey();
+
+          // 🔹 Push non-empty filters
+          if (sCompany)
+            aFilters.push(
+              new sap.ui.model.Filter(
+                "CompanyCode",
+                sap.ui.model.FilterOperator.EQ,
+                sCompany
+              )
+            );
+          if (sBranch)
+            aFilters.push(
+              new sap.ui.model.Filter(
+                "BranchCode",
+                sap.ui.model.FilterOperator.Contains,
+                sBranch
+              )
+            );
+          if (sAC)
+            aFilters.push(
+              new sap.ui.model.Filter(
+                "AC_type",
+                sap.ui.model.FilterOperator.EQ,
+                sAC
+              )
+            );
+          if (sStatus)
+            aFilters.push(
+              new sap.ui.model.Filter(
+                "BookingFlag",
+                sap.ui.model.FilterOperator.EQ,
+                sStatus === "true"
+              )
+            );
+
+          // 🔹 Apply to table binding (client-side filter)
+          oBinding.filter(aFilters);
+
+          // Optional toast
+          sap.m.MessageToast.show("Filters applied");
+        },
+
+        onFilterClear: function () {
+          this.byId("filterCompany").setSelectedKey("");
+          this.byId("filterBranch").setValue("");
+          this.byId("filterAC").setSelectedKey("");
+          this.byId("filterStatus").setSelectedKey("");
         },
       }
     );

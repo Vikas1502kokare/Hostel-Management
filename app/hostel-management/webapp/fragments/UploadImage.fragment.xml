@@ -3,7 +3,7 @@
             title="Upload Room Image"
             contentWidth="500px"
             draggable="true"
-            resizable="true">
+>
         <VBox class="sapUiMediumMargin">
             
             <Label text="Room No:" class="sapUiSmallMarginBottom"/>
@@ -32,7 +32,6 @@
             <Text text="Supported: JPG, PNG, GIF. Max 5MB."
                   class="sapUiTinyMarginTop sapThemeHighlight-asColor"/>
         </VBox>
-
         <buttons>
             <Button text="Cancel" type="Reject" press=".onCloseUploadDialog"/>
             <Button text="Upload" type="Emphasized" press=".onUploadImageSubmit"/>

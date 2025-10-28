@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    
+    <Dialog
+        id="addEditRoomDialog"
+        title="{viewModel>/dialogTitle}"
+        draggable="true"
+        resizable="true"
+        contentWidth="600px">
+        
+        <VBox class="sapUiMediumMargin">
+            
+            <Label text="Company Code" />
+            <Input value="{viewModel>/formData/CompanyCode}" />
+
+            <Label text="Branch Code" />
+            <Input value="{viewModel>/formData/BranchCode}" />
+
+            <Label text="Room Number" />
+            <Input value="{viewModel>/formData/RoomNo}" />
+
+            <Label text="AC Type" />
+            <Input value="{viewModel>/formData/AC_type}" />
+
+            <Label text="Bed Type" />
+            <Input value="{viewModel>/formData/BedTypes}" />
+
+            <Label text="Price" />
+            <Input value="{viewModel>/formData/Price}" type="Number" />
+
+            <Label text="Currency" />
+<ComboBox selectedKey="{viewModel>/formData/Currency}" placeholder="Select Currency">
+    <core:Item key="INR" text="INR" />
+    <core:Item key="USD" text="USD" />
+    <core:Item key="EUR" text="EUR" />
+    <core:Item key="GBP" text="GBP" />
+</ComboBox>
+
+
+            <Label text="Persons" />
+            <Input value="{viewModel>/formData/NoOfPersons}" type="Number" />
+
+            <Label text="Shareable" />
+            <Switch state="{viewModel>/formData/Shareble}" />
+
+            <Label text="Status" />
+            <Select selectedKey="{viewModel>/formData/BookingFlag}">
+                <items>
+                    <core:Item key="false" text="Available" />
+                    <core:Item key="true" text="Booked" />
+                </items>
+            </Select>
+
+            <Label text="Description" />
+            <TextArea rows="3" value="{viewModel>/formData/description}" />
+
+            <Label text="Room Photo" />
+            <u:FileUploader
+                id="fileUploader"
+                change=".onFileSelect"
+                fileType="jpg,jpeg,png,gif"
+                maximumFileSize="5"
+                style="Emphasized"
+    placeholder="Select image..."
+                sameFilenameAllowed="true"
+                name="roomImage"
+                class="sapUiTinyMarginBottom"
+                icon="sap-icon://attachment"
+                buttonText="Select Image" />
+        </VBox>
+
+        <beginButton>
+            <Button text="Save" type="Emphasized" press=".onSaveRoom" />
+        </beginButton>
+
+        <endButton>
+            <Button text="Cancel" press=".onCloseAddEditDialog" />
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

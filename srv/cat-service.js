@@ -4,9 +4,6 @@ const { Readable } = require("stream");
 module.exports = cds.service.impl(async function () {
   const { Rooms } = this.entities;
 
-  // ----------------------------------------
-  // 🔧 Utility: Convert a Readable stream to Buffer
-  // ----------------------------------------
   const streamToBuffer = (stream) =>
     new Promise((resolve, reject) => {
       const chunks = [];
@@ -15,9 +12,7 @@ module.exports = cds.service.impl(async function () {
       stream.on("error", reject);
     });
 
-  // ----------------------------------------
   // 🔹 Action: Upload Image
-  // ----------------------------------------
   this.on("uploadImage", async (req) => {
     try {
       const { ID, imageData } = req.data;
@@ -41,9 +36,12 @@ module.exports = cds.service.impl(async function () {
         return "Error: imageData must be a string";
       }
 
-      if (!buffer || buffer.length === 0) return "Error: Invalid or empty image data";
+      if (!buffer || buffer.length === 0)
+        return "Error: Invalid or empty image data";
 
+      // ✅ FIXED: Add this transaction (missing earlier)
       const tx = cds.tx(req);
+
       const roomExists = await tx.run(SELECT.one.from(Rooms).where({ ID }));
       if (!roomExists) return `Error: Room with ID ${ID} not found`;
 
@@ -54,14 +52,12 @@ module.exports = cds.service.impl(async function () {
       console.log(`✅ Image uploaded for Room ID: ${ID}, size: ${buffer.length} bytes`);
       return `Image uploaded successfully (${(buffer.length / 1024).toFixed(1)} KB)`;
     } catch (error) {
-      console.error("❌ Upload error:", error);
+      console.error("❌ Upload error:", error.message);
       return "Error: Failed to upload image - " + error.message;
     }
   });
 
-  // ----------------------------------------
-  // 🔹 Function: Get Room Photo (Base64 URI)
-  // ----------------------------------------
+  // 🔹 Function: Get Room Photo
   this.on("getRoomPhoto", async (req) => {
     try {
       let { ID } = req.data;
@@ -93,9 +89,7 @@ module.exports = cds.service.impl(async function () {
     }
   });
 
-  // ----------------------------------------
   // 🔹 Action: Delete All Rooms
-  // ----------------------------------------
   this.on("deleteAllRooms", async (req) => {
     try {
       const tx = cds.tx(req);

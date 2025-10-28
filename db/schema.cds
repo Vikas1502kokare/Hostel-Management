@@ -1,30 +1,30 @@
-//db/schema.cds
+  //db/schema.cds
 
-namespace my.hostel;
+  namespace my.hostel;
 
-using {managed} from '@sap/cds/common';
+  using {managed} from '@sap/cds/common';
 
 
-entity Rooms : managed {
-  key ID            : UUID;
-      RoomNo        : String(30);
-      BedTypes      : String(20);
-      Price         : Decimal(10, 2);
-      AC_type       : String(10);
-      Shareble      : Boolean;
-      Currency      : String(3);
-      NoOfPersons   : Integer;
-      BranchCode    : String(10);
-      CompanyCode   : String(10);
-      //  -- Verify your table structure
-      roomPhotos    : LargeBinary;
-      roomPhotoType : String(128) not null default 'application/octet-stream';
-      BookingFlag   : Boolean;
-      // Association Correction: One Room has many Bookings
-      Bookings      : Association to many Booking
-                        on Bookings.Room = $self;
-      description   : String;
-}
+  entity Rooms : managed {
+    key ID            : UUID;
+        RoomNo        : String(30);
+        BedTypes      : String(20);
+        Price         : Decimal(10, 2);
+        AC_type       : String(10);
+        Shareble      : Boolean;
+        Currency      : String(3);
+        NoOfPersons   : Integer;
+        BranchCode    : String(10);
+        CompanyCode   : String(10);
+        //  -- Verify your table structure
+        roomPhotos    : LargeBinary;
+        roomPhotoType : String(128) not null default 'application/octet-stream';
+        BookingFlag   : Boolean;
+        // Association Correction: One Room has many Bookings
+        Bookings      : Association to many Booking
+                          on Bookings.Room = $self;
+        description   : String;
+  }
 
 entity Price : managed {
   key PriceID     : UUID;

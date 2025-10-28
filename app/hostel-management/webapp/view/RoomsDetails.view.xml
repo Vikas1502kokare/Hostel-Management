@@ -2,10 +2,62 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:l="sap.ui.layout" height="100%">
+    xmlns:l="sap.ui.layout" height="100%"
+    xmlns:fb="sap.ui.comp.filterbar">
+
     <Page title="Rooms Details" showHeader="true" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="onBack">
         <content>
-            <Table id="roomsTable" mode="SingleSelectMaster" selectionChange=".onRoomSelect" sticky="ColumnHeaders,HeaderToolbar" items="{ path: '/Rooms' }" growing="true" growingScrollToLoad="true">
+
+            <fb:FilterBar id="filterBarRooms" clear="onFilterClear" search="onFilterSearch" showClearOnFB="true" showFilterConfiguration="false" showAllFilters="true" filtersDialogCancel="false" persistencyKey="roomFilterPersKey" useToolbar="false" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+
+                <fb:filterGroupItems>
+
+                    <!-- Company Code -->
+                    <fb:FilterGroupItem name="CompanyCode" label="Company Code" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <ComboBox id="filterCompany" items="{local>/CompanyCodes}">
+                                <core:Item key="{local>CompanyCode}" text="{local>CompanyCode}" />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <!-- Branch Code -->
+                    <fb:FilterGroupItem name="BranchCode" label="Branch Code" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterBranch" placeholder="Enter Branch Code" showClearIcon="true" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <!-- AC Type -->
+                    <fb:FilterGroupItem name="AC_type" label="AC Type" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <ComboBox id="filterAC" placeholder="Select Type" showClearIcon="true" selectedKey="">
+                                <core:Item key="AC" text="AC" />
+                                <core:Item key="Non-AC" text="Non-AC" />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <!-- Status -->
+                    <fb:FilterGroupItem name="BookingFlag" label="Status" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <ComboBox id="filterStatus" placeholder="Choose Status" showClearIcon="true" selectedKey="">
+                                <core:Item key="true" text="Booked" />
+                                <core:Item key="false" text="Available" />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+
+
+
+
+
+
+            <Table id="roomsTable" mode="SingleSelectLeft" inset="false" selectionChange=".onRoomSelect" sticky="ColumnHeaders,HeaderToolbar" items="{ path: '/Rooms' }" growing="true" growingScrollToLoad="true">
                 <headerToolbar>
                     <OverflowToolbar>
                         <Title text="Rooms List" level="H2"/>
@@ -16,11 +68,17 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column minScreenWidth="Tablet" demandPopin="true">
-                        <Text text="Room Photo"/>
+                    <Column demandPopin="true">
+                        <Text text="Company Code"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Branch Code"/>
                     </Column>
                     <Column demandPopin="true">
                         <Text text="Room Number"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="AC Type"/>
                     </Column>
                     <Column demandPopin="true">
                         <Text text="Bed Type"/>
@@ -29,34 +87,42 @@
                         <Text text="Price"/>
                     </Column>
                     <Column demandPopin="true">
-                        <Text text="AC Type"/>
+                        <Text text="Persons"/>
                     </Column>
                     <Column demandPopin="true">
                         <Text text="Shareable"/>
                     </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
                     <Column demandPopin="true">
-                        <Text text="Persons"/>
+                        <Text text="Description"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Room Photo"/>
                     </Column>
                 </columns>
-
                 <items>
                     <ColumnListItem>
                         <cells>
+                            <Text text="{CompanyCode}"/>
+                            <Text text="{BranchCode}"/>
+                            <Text text="{RoomNo}"/>
+                            <Text text="{AC_type}"/>
+                            <Text text="{BedTypes}"/>
+                            <Text text="{ parts: [{ path: 'Price' },{ path: 'Currency' }],type: 'sap.ui.model.type.Currency',formatOptions: {showMeasure: true}}"/>
+                            <Text text="{NoOfPersons}"/>
+                            <Text text="{ path: 'Shareble',formatter: '.formatBoolean' }"/>
+                            <ObjectStatus text="{= ${BookingFlag} ? 'Booked' : 'Available' }" state="{= ${BookingFlag} ? 'Error' : 'Success' }" icon="{= ${BookingFlag} ? 'sap-icon://decline' : 'sap-icon://accept' }" />
+                            <ExpandableText text="{description}" maxCharacters="8" />
                             <l:VerticalLayout class="sapUiSmallMargin">
                                 <Image src="{path: '__metadata/media_src', formatter: '.cacheBustImage'}" width="90px" height="80px" densityAware="false" alt="Room Photo" press=".onViewPhoto" decorative="false" class="roomImageClickable" />
                                 <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
                             </l:VerticalLayout>
-                            <Text text="{RoomNo}"/>
-                            <Text text="{BedTypes}"/>
-                            <Text text="{ parts: [{ path: 'Price' },{ path: 'Currency' }],type: 'sap.ui.model.type.Currency',formatOptions: {showMeasure: true}}"/>
-                            <Text text="{AC_type}"/>
-                            <Text text="{ path: 'Shareble',formatter: '.formatBoolean' }"/>
-                            <Text text="{NoOfPersons}"/>
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
-
         </content>
         <footer>
             <Toolbar>
