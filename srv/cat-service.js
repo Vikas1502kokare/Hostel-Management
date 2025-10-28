@@ -1,52 +1,110 @@
-//srv/service.js
-
 const cds = require("@sap/cds");
+const { Readable } = require("stream");
 
-module.exports = cds.service.impl(function () {
+module.exports = cds.service.impl(async function () {
   const { Rooms } = this.entities;
-  const db = cds.connect.to("db");
 
-  this.before("CREATE", Rooms, async (req) => {
-    const { RoomNo, BranchCode } = req.data;
+  // ----------------------------------------
+  // 🔧 Utility: Convert a Readable stream to Buffer
+  // ----------------------------------------
+  const streamToBuffer = (stream) =>
+    new Promise((resolve, reject) => {
+      const chunks = [];
+      stream.on("data", (chunk) => chunks.push(chunk));
+      stream.on("end", () => resolve(Buffer.concat(chunks)));
+      stream.on("error", reject);
+    });
 
-    const exists = await cds.run(
-      SELECT.one.from(Rooms).where({ RoomNo, BranchCode })
-    );
-    if (exists)
-      req.error(
-        400,
-        "A room with this number already exists in the same branch."
-      );
-  });
-
-  this.before("UPDATE", Rooms, async (req) => {});
-
+  // ----------------------------------------
+  // 🔹 Action: Upload Image
+  // ----------------------------------------
   this.on("uploadImage", async (req) => {
-    const { ID, imageData } = req.data;
+    try {
+      const { ID, imageData } = req.data;
+      if (!ID) return "Error: Room ID is required";
+      if (!imageData) return "Error: imageData is required";
 
-    if (!imageData) {
-      return req.error(400, "No image data provided");
+      let mimeType = "application/octet-stream";
+      let buffer;
+
+      if (typeof imageData === "string") {
+        if (imageData.startsWith("data:")) {
+          const matches = imageData.match(/^data:([^;]+);base64,(.+)$/);
+          if (!matches) return "Error: Invalid data URL format";
+
+          mimeType = matches[1];
+          buffer = Buffer.from(matches[2], "base64");
+        } else {
+          buffer = Buffer.from(imageData, "base64");
+        }
+      } else {
+        return "Error: imageData must be a string";
+      }
+
+      if (!buffer || buffer.length === 0) return "Error: Invalid or empty image data";
+
+      const tx = cds.tx(req);
+      const roomExists = await tx.run(SELECT.one.from(Rooms).where({ ID }));
+      if (!roomExists) return `Error: Room with ID ${ID} not found`;
+
+      await tx.run(
+        UPDATE(Rooms).set({ roomPhotos: buffer, roomPhotoType: mimeType }).where({ ID })
+      );
+
+      console.log(`✅ Image uploaded for Room ID: ${ID}, size: ${buffer.length} bytes`);
+      return `Image uploaded successfully (${(buffer.length / 1024).toFixed(1)} KB)`;
+    } catch (error) {
+      console.error("❌ Upload error:", error);
+      return "Error: Failed to upload image - " + error.message;
     }
-
-    // Remove base64 header if present (e.g., "data:image/png;base64,")
-    const base64Data = imageData.includes(",")
-      ? imageData.split(",")[1]
-      : imageData;
-
-    // Convert base64 to binary buffer
-    const buffer = Buffer.from(base64Data, "base64");
-
-    // Insert or update the image in Rooms table
-    await cds
-      .tx(req)
-      .run(UPDATE(Rooms).set({ roomPhotos: buffer }).where({ ID }));
-
-    return { message: "Image uploaded successfully" };
   });
 
+  // ----------------------------------------
+  // 🔹 Function: Get Room Photo (Base64 URI)
+  // ----------------------------------------
+  this.on("getRoomPhoto", async (req) => {
+    try {
+      let { ID } = req.data;
+      if (typeof ID === "string") ID = ID.replace(/^guid'(.+)'$/, "$1");
+
+      const tx = cds.tx(req);
+      const result = await tx.run(
+        SELECT.one.from(Rooms).columns("roomPhotos", "roomPhotoType").where({ ID })
+      );
+
+      if (!result || !result.roomPhotos) return "no photo found";
+
+      const data = result.roomPhotos;
+      let buffer = Buffer.isBuffer(data)
+        ? data
+        : data?.readable || typeof data?.on === "function"
+        ? await streamToBuffer(data)
+        : data?.value
+        ? Buffer.from(data.value)
+        : null;
+
+      if (!buffer || buffer.length === 0) return "no photo found";
+
+      const mimeType = result.roomPhotoType || "image/png";
+      return `data:${mimeType};base64,${buffer.toString("base64")}`;
+    } catch (error) {
+      console.error("❌ getRoomPhoto error:", error);
+      return "Error: Failed to fetch image - " + error.message;
+    }
+  });
+
+  // ----------------------------------------
+  // 🔹 Action: Delete All Rooms
+  // ----------------------------------------
   this.on("deleteAllRooms", async (req) => {
-    const db = await cds.connect.to("db");
-    await db.run(DELETE.from(Rooms));
-    return "All rooms deleted successfully!";
+    try {
+      const tx = cds.tx(req);
+      const deleted = await tx.run(DELETE.from(Rooms));
+      console.log(`🗑️ ${deleted} rooms deleted`);
+      return `All rooms deleted successfully (${deleted} removed).`;
+    } catch (error) {
+      console.error("❌ deleteAllRooms error:", error);
+      return "Error: Failed to delete rooms - " + error.message;
+    }
   });
 });

@@ -1,263 +1,249 @@
-sap.ui.define(
-  [
+sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
-    "sap/m/MessageBox",
-    "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
-  ],
-  (Controller, MessageToast, MessageBox, Fragment, JSONModel) => {
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+    "sap/ui/core/Fragment"
+], function (Controller, JSONModel, MessageBox, MessageToast, Fragment) {
     "use strict";
 
-    return Controller.extend(
-      "hostel.com.hostelmanagement.controller.RoomsDetails",
-      {
-        // --- Initialization and Data Fetching ---
-        onInit() {
-          const oButtonModel = new JSONModel({
-            isRoomSelected: false,
-          });
-          this.getView().setModel(oButtonModel, "viewProperties");
+    return Controller.extend("hostel.com.hostelmanagement.controller.RoomsDetails", {
 
-          let oModel = this.getOwnerComponent().getModel();
+        onInit: function () {
+            const oView = this.getView();
 
-          oModel.read("/Rooms", {
-            success: (oData) => {
-              // console.log(oData.results);
-              let rooms = oData.results.map((room) => ({
-                ...room,
-                imageSrc: room.roomPhotos, // already a full data URI
-                // imageSrc: room.roomPhotos ? `data:image/jpeg;base64,${room.roomPhotos}` : "",
-              }));
-
-              let oJSONModel = new sap.ui.model.json.JSONModel(rooms);
-              this.getView().setModel(oJSONModel, "roomsModel");
-            },
-            error: (error) => {
-              console.error("Error fetching Rooms:", error);
-            },
-          });
-        },
-        // RoomsDetails.controller.js mein add karein
-        onSelectionChange: function (oEvent) {
-          const oTable = oEvent.getSource();
-          const aSelectedItems = oTable.getSelectedItems();
-          const oViewPropsModel = this.getView().getModel("viewProperties");
-
-          // Check karein ki koi item selected hai ya nahi
-          const bIsSelected = aSelectedItems.length > 0;
-          oViewPropsModel.setProperty("/isRoomSelected", bIsSelected);
-
-          if (bIsSelected) {
-            // Selected item ka context save kar sakte hain agar zaroori ho
-            this._oSelectedContext =
-              aSelectedItems[0].getBindingContext("roomsModel");
-          } else {
-            this._oSelectedContext = null;
-          }
+            oView.setModel(new JSONModel({ tokens: [] }), "tokenModel");
+            oView.setModel(new JSONModel({ File: "", FileName: "", FileType: "" }), "UploadModel");
+            oView.setModel(new JSONModel({ selectedRoom: {}, busy: false, hasData: false }), "viewModel");
         },
 
-        onAddRooms: function () {
-          if (!this._oRoomDialog) {
-            this._oRoomDialog = sap.ui.xmlfragment(
-              "hostel.com.hostelmanagement.fragments.modRooms",
-              this
-            );
-            this.getView().addDependent(this._oRoomDialog);
-          }
+        /** ----------------------------------------------------------------
+         *  ROOM LIST MANAGEMENT
+         *  ---------------------------------------------------------------- */
+        _loadRoomsData: function () {
+            const oView = this.getView();
+            const oModel = this.getOwnerComponent().getModel();
+            const oViewModel = oView.getModel("viewModel");
 
-          // 💡 FIX: Manually attach the change event
-          // Fragment ke andar ke control ko Fragment.byId() se access karein
-          const oFileUploader = sap.ui.core.Fragment.byId(
-            this._oRoomDialog.getId(),
-            "jobFileUploader" // ID changed from 'IDfileUploader' to 'jobFileUploader'
-          );
-
-          // Agar control milta hai aur event pehle se attached nahi hai, toh attach karein
-          if (oFileUploader && !oFileUploader.hasListeners("change")) {
-            // onFileChange function ko attach karein (aapne XML mein bhi 'onFileChange' diya hai)
-            oFileUploader.attachChange(this.onFileChange, this);
-          }
-
-          const oNewRoomData = {
-            mode: "Add Room",
-            RoomNo: "",
-            BedTypes: "",
-            Price: "",
-            AC_type: "",
-            Shareble: false,
-            Currency: "",
-            NoOfPersons: 1,
-            BranchCode: "",
-            CompanyCode: "",
-            description: "",
-            roomPhotos: null, // Base64 string yahan store hoga
-            BookingFlag: false,
-          };
-          const oRoomModel = new sap.ui.model.json.JSONModel(oNewRoomData);
-          this.getView().setModel(oRoomModel, "roomForm");
-          this._oRoomDialog.open();
-        },
-
-        // 🔹 Open dialog for EDIT mode
-        // 🔹 Open dialog for EDIT mode
-        onEditRoom: function (oEvent) {
-          // 💡 FIX: Table se selected item ko fetch karein
-          const oTable = this.getView().byId("roomsTable");
-          const aSelectedItems = oTable.getSelectedItems();
-
-          if (aSelectedItems.length === 0) {
-            // Agar button selection binding ke bawajood press ho, toh error dein
-            MessageBox.error(
-              "Kripya Edit karne ke liye ek Room select karein."
-            );
-            return;
-          }
-
-          // SingleSelectMaster mode mein, sirf pehla item uthana hai
-          const oSelectedRoom = aSelectedItems[0]
-            .getBindingContext("roomsModel")
-            .getObject();
-
-          if (!this._oRoomDialog) {
-            this._oRoomDialog = sap.ui.xmlfragment(
-              "hostel.com.hostelmanagement.fragments.modRooms",
-              this
-            );
-            this.getView().addDependent(this._oRoomDialog);
-          }
-
-          const oRoomData = { ...oSelectedRoom, mode: "Edit Room" };
-          const oRoomModel = new sap.ui.model.json.JSONModel(oRoomData);
-          this.getView().setModel(oRoomModel, "roomForm");
-
-          this._oRoomDialog.open();
-
-          // 💡 BEST PRACTICE: Dialog open hone ke baad selection clear kar dein (optional)
-          // oTable.removeSelections(true);
-          // this.getView().getModel("viewProperties").setProperty("/isRoomSelected", false);
-        },
-
-        onFileChange: function (oEvent) {
-          const oFileUploader = oEvent.getSource();
-          const aFiles = oEvent.getParameter("files");
-
-          if (aFiles && aFiles.length > 0) {
-            const oFile = aFiles[0];
-            const oReader = new FileReader();
-            const oRoomFormModel = this.getView().getModel("roomForm");
-
-            // File ko Data URL (Base64) mein read karein
-            oReader.readAsDataURL(oFile);
-
-            oReader.onload = (e) => {
-              const sResult = e.target.result;
-
-              oRoomFormModel.setProperty("/roomPhotos", sResult);
-
-              oRoomFormModel.setProperty("/imageSrc", sResult);
-
-              sap.m.MessageToast.show(oFile.name + " selected and converted.");
-            };
-
-            oReader.onerror = (e) => {
-              sap.m.MessageBox.error(
-                "File reading mein error: " + e.target.error.name
-              );
-              oRoomFormModel.setProperty("/roomPhotos", null);
-              oRoomFormModel.setProperty("/imageSrc", "");
-            };
-          } else {
-            // Agar file clear ho gayi hai
-            this.getView()
-              .getModel("roomForm")
-              .setProperty("/roomPhotos", null);
-            this.getView().getModel("roomForm").setProperty("/imageSrc", "");
-          }
-        },
-
-        onSaveRoom: async function () {
-          const oModel = this.getOwnerComponent().getModel();
-          const oData = this.getView().getModel("roomForm").getData();
-          const oDialog = this._oRoomDialog;
-          const bIsEdit = oData.mode === "Edit Room";
-
-          // ⚠️ Validation: Check agar roomPhotos null hai 'Add' mode mein
-          if (!bIsEdit && !oData.roomPhotos) {
-            sap.m.MessageBox.error("Kripya room image upload karein!");
-            return; // Stop processing
-          }
-
-          this.getView().setBusy(true);
-
-          try {
-            // --- Sanitize Payload ---
-            const oPayload = { ...oData };
-            delete oPayload.mode;
-            delete oPayload.imageSrc; // derived property, isko OData mein nahi bhejna hai
-
-            // roomPhotos Base64 string ab payload mein hai
-            // yahan koi aur change karne ki zaroorat nahi hai.
-
-            // 🔹 DEBUG: Print the payload
-            console.log("😍Payload being sent to OData:", oPayload);
-
-            // --- CREATE or UPDATE ---
-            if (bIsEdit) {
-              await new Promise((resolve, reject) => {
-                oModel.update(`/Rooms('${oPayload.ID}')`, oPayload, {
-                  success: () => {
-                    sap.m.MessageToast.show("Room updated successfully!");
-                    resolve();
-                  },
-                  error: (err) => {
-                    console.error(err);
-                    sap.m.MessageBox.error("Error updating room!");
-                    reject(err);
-                  },
-                });
-              });
-            } else {
-              await new Promise((resolve, reject) => {
-                oModel.create("/Rooms", oPayload, {
-                  success: () => {
-                    sap.m.MessageToast.show("Room created successfully!");
-                    resolve();
-                  },
-                  error: (err) => {
-                    console.error(err);
-                    sap.m.MessageBox.error("Error creating room!");
-                    reject(err);
-                  },
-                });
-              });
+            if (!oModel) {
+                MessageBox.error("OData model not available.");
+                return;
             }
 
-            oModel.refresh(true);
-            oDialog.close();
-          } catch (err) {
-            console.error("Error saving room:", err);
-          } finally {
-            this.getView().setBusy(false);
-          }
+            oViewModel.setProperty("/busy", true);
+
+            oModel.read("/Rooms", {
+                urlParameters: {
+                    "$select": "ID,RoomNo,BedTypes,Price,AC_type,Shareble,Currency,NoOfPersons,BranchCode,CompanyCode,BookingFlag,description,roomPhotos,roomPhotoType"
+                },
+                success: (oData) => {
+                    const rooms = oData.results || [];
+                    oViewModel.setProperty("/hasData", rooms.length > 0);
+                    MessageToast.show(`Loaded ${rooms.length} rooms`);
+                },
+                error: (err) => {
+                    console.error("Error loading rooms:", err);
+                    MessageBox.error("Failed to load rooms.");
+                    oViewModel.setProperty("/hasData", false);
+                },
+                finally: () => oViewModel.setProperty("/busy", false)
+            });
         },
 
-        // ... onCancelRoom function ...
-        onCancelRoom: function () {
-          // Check karein ki dialog exist karta hai aur close karein
-          if (this._oRoomDialog) {
-            // Agar yeh ek control hai, toh seedha close() call karein.
-            this._oRoomDialog.close();
-
-            // Optional: Agar aap dialog ko destroy karna chahte hain:
-            // this._oRoomDialog.destroy();
-            // this._oRoomDialog = null;
-          } else {
-            // Agar dialog abhi tak open nahi hua tha ya initialize nahi hua tha
-            console.warn("Room Dialog is not initialized or open.");
-          }
+        onRefresh: function () {
+            this._loadRoomsData();
         },
-      }
-    );
-  }
-);
+
+        onDeleteRoom: function (oEvent) {
+            const oRoom = oEvent.getSource().getBindingContext().getObject();
+            if (!oRoom?.ID) return;
+
+            MessageBox.confirm(`Delete room ${oRoom.RoomNo}?`, {
+                title: "Confirm Deletion",
+                onClose: (sAction) => {
+                    if (sAction === MessageBox.Action.OK) {
+                        const oModel = this.getOwnerComponent().getModel();
+                        oModel.remove(`/Rooms(${oRoom.ID})`, {
+                            success: () => {
+                                MessageToast.show("Room deleted.");
+                                this._loadRoomsData();
+                            },
+                            error: (err) => MessageBox.error("Delete failed: " + err.message)
+                        });
+                    }
+                }
+            });
+        },
+
+        formatBoolean: (b) => (b ? "Yes" : "No"),
+        formatRoomImage: (photo) => photo?.startsWith("data:") ? photo : "sap-icon://picture",
+
+        onBack: function () {
+            const oRouter = this.getOwnerComponent().getRouter();
+            oRouter ? oRouter.navTo("AdminTile") : window.history.back();
+        },
+
+        /** ----------------------------------------------------------------
+         *  IMAGE UPLOAD DIALOG
+         *  ---------------------------------------------------------------- */
+        onOpenUploadDialog: async function (oEvent) {
+            const oView = this.getView();
+            const oContext = oEvent.getSource().getBindingContext();
+            oView.getModel("viewModel").setProperty("/selectedRoom", oContext.getObject());
+
+            if (!this._oUploadDialog) {
+                this._oUploadDialog = await Fragment.load({
+                    id: oView.getId(),
+                    name: "hostel.com.hostelmanagement.fragments.UploadImage",
+                    controller: this
+                });
+                oView.addDependent(this._oUploadDialog);
+            }
+
+            // Reset controls
+            this.byId("roomTokenizer")?.removeAllTokens();
+            this.byId("roomFileUploader")?.clear();
+            this.byId("MS-fileErrorText")?.setVisible(false);
+
+            this._oUploadDialog.open();
+        },
+
+        onCloseUploadDialog: function () {
+            if (this._oUploadDialog) {
+                this._oUploadDialog.close();
+                setTimeout(() => {
+                    this._oUploadDialog.destroy(true);
+                    this._oUploadDialog = null;
+                }, 300);
+            }
+        },
+
+        /** ----------------------------------------------------------------
+         *  FILE HANDLING
+         *  ---------------------------------------------------------------- */
+        onFileChange: function (oEvent) {
+            const oFile = oEvent.getParameter("files")[0];
+            if (!oFile) return MessageToast.show("No file selected");
+
+            if (oFile.size > 5 * 1024 * 1024) {
+                return this._showFileError("File size must be under 5 MB.");
+            }
+
+            const allowed = ["image/jpeg", "image/png", "image/gif"];
+            if (!allowed.includes(oFile.type)) {
+                return this._showFileError("Invalid file type. Use JPG, PNG, or GIF.");
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64 = e.target.result.split(",")[1];
+                this.getView().getModel("UploadModel").setData({
+                    File: base64,
+                    FileName: oFile.name,
+                    FileType: oFile.type
+                });
+
+                this.getView().getModel("tokenModel").setProperty("/tokens", [{
+                    key: oFile.name,
+                    text: oFile.name
+                }]);
+
+                this._hideFileError();
+                MessageToast.show("File ready: " + oFile.name);
+            };
+            reader.readAsDataURL(oFile);
+        },
+
+        onTokenDelete: function () {
+            this.getView().getModel("tokenModel").setProperty("/tokens", []);
+            this.getView().getModel("UploadModel").setData({ File: "", FileName: "", FileType: "" });
+        },
+
+        _showFileError: function (msg) {
+            const layout = this.byId("fileErrorLayout");
+            const strip = this.byId("MS-fileErrorText");
+            strip.setText(msg);
+            strip.setVisible(true);
+            layout.setVisible(true);
+        },
+
+        _hideFileError: function () {
+            const layout = this.byId("fileErrorLayout");
+            const strip = this.byId("MS-fileErrorText");
+            strip.setVisible(false);
+            layout.setVisible(false);
+        },
+
+        /** ----------------------------------------------------------------
+         *  IMAGE UPLOAD REQUEST
+         *  ---------------------------------------------------------------- */
+        onUploadImageSubmit: async function () {
+            const oView = this.getView();
+            const { File, FileType } = oView.getModel("UploadModel").getData();
+            const oRoom = oView.getModel("viewModel").getProperty("/selectedRoom");
+
+            if (!File) return MessageToast.show("Please select a file first.");
+            if (!oRoom?.ID) return MessageToast.show("Room ID missing.");
+
+            try {
+                oView.setBusy(true);
+                const res = await fetch("/odata/v2/catalog/uploadImage", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        ID: oRoom.ID,
+                        imageData: `data:${FileType};base64,${File}`
+                    })
+                });
+
+                const text = await res.text();
+                MessageToast.show(text);
+                this.onCloseUploadDialog();
+                this._loadRoomsData();
+
+            } catch (err) {
+                console.error("Upload failed:", err);
+                MessageBox.error("Upload failed: " + err.message);
+            } finally {
+                oView.setBusy(false);
+            }
+        },
+
+        /** ----------------------------------------------------------------
+         *  IMAGE VIEWER
+         *  ---------------------------------------------------------------- */
+        onViewPhoto: async function (oEvent) {
+            const sRoomId = oEvent.getSource().getBindingContext().getProperty("ID");
+            const sUrl = `/odata/v2/catalog/getRoomPhoto?ID=${sRoomId}`;
+
+            try {
+                const response = await fetch(sUrl);
+                const result = await response.json();
+                const imageData = result?.d?.getRoomPhoto;
+
+                if (!imageData?.startsWith("data:image")) {
+                    return MessageToast.show("No image available.");
+                }
+
+                if (!this._oPhotoDialog) {
+                    this._oPhotoDialog = new sap.m.Dialog({
+                        title: "Room Photo",
+                        contentWidth: "50%",
+                        content: [new sap.m.Image({ width: "100%", densityAware: false })],
+                        endButton: new sap.m.Button({
+                            text: "Close",
+                            press: () => this._oPhotoDialog.close()
+                        })
+                    });
+                    this.getView().addDependent(this._oPhotoDialog);
+                }
+
+                this._oPhotoDialog.getContent()[0].setSrc(imageData);
+                this._oPhotoDialog.open();
+            } catch (err) {
+                console.error("Error fetching photo:", err);
+                MessageToast.show("Failed to load image.");
+            }
+        }
+    });
+});

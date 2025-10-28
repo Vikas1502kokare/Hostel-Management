@@ -1,25 +1,29 @@
+//db/schema.cds
+
 namespace my.hostel;
 
 using {managed} from '@sap/cds/common';
 
 
 entity Rooms : managed {
-  key ID          : UUID;
-      RoomNo      : String(10);
-      BedTypes    : String(20);
-      Price       : Decimal(10, 2);
-      AC_type     : String(10);
-      Shareble    : Boolean; 
-      Currency    : String(3);
-      NoOfPersons : Integer;
-      BranchCode  : String(10);
-      CompanyCode : String(10);
-      roomPhotos  : LargeString;
-      BookingFlag : Boolean;
+  key ID            : UUID;
+      RoomNo        : String(30);
+      BedTypes      : String(20);
+      Price         : Decimal(10, 2);
+      AC_type       : String(10);
+      Shareble      : Boolean;
+      Currency      : String(3);
+      NoOfPersons   : Integer;
+      BranchCode    : String(10);
+      CompanyCode   : String(10);
+      //  -- Verify your table structure
+      roomPhotos    : LargeBinary;
+      roomPhotoType : String(128) not null default 'application/octet-stream';
+      BookingFlag   : Boolean;
       // Association Correction: One Room has many Bookings
-      Bookings    : Association to many Booking
-                      on Bookings.Room = $self;
-      description : String;
+      Bookings      : Association to many Booking
+                        on Bookings.Room = $self;
+      description   : String;
 }
 
 entity Price : managed {
@@ -61,14 +65,14 @@ entity Customer : managed {
       Salutation       : String(10);
       CustomerName     : String(50);
       Gender           : String(10);
-      DateOfBirth      : Date; 
+      DateOfBirth      : Date;
       PermanentAddress : String(100);
       Country          : String(50);
       State            : String(50);
       CountryCode      : String(5);
       City             : String(50);
       STDCode          : String(10);
-      MobileNo         : String(15); 
+      MobileNo         : String(15);
       CustomerEmail    : String(50);
       // Association Corrections
       Bookings         : Association to many Booking
@@ -108,7 +112,7 @@ entity Payment : managed {
       Currency      : String(3);
       // Foreign Key Associations
       Booking       : Association to Booking;
-      Customer      : Association to Customer; 
+      Customer      : Association to Customer;
 }
 
 
@@ -139,7 +143,7 @@ entity Login : managed {
       TimeDate    : DateTime;
       MobileNo    : String(15);
       // Foreign Key Association
-      Employee    : Association to Employee; 
+      Employee    : Association to Employee;
 }
 
 entity Transaction : managed {

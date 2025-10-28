@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+    <Dialog id="uploadImageDialog"
+            title="Upload Room Image"
+            contentWidth="500px"
+            draggable="true"
+            resizable="true">
+        <VBox class="sapUiMediumMargin">
+            
+            <Label text="Room No:" class="sapUiSmallMarginBottom"/>
+            <Text text="{viewModel>/selectedRoom/RoomNo}" class="sapUiTinyMarginBottom"/>
+
+            <Label text="Select Image File:" class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                <u:FileUploader id="roomFileUploader"
+                                change=".onFileChange"
+                                buttonText="Select File"
+                                fileType="jpg,jpeg,png,gif"
+                                maximumFileSize="5"
+                                icon="sap-icon://attachment"
+                                sameFilenameAllowed="true"
+                                name="roomImage"
+                                class="sapUiSmallMarginEnd"/>
+
+                <Tokenizer id="roomTokenizer"
+                           width="100%"
+                           tokenDelete=".onTokenDelete"
+                           tokens="{tokenModel>/tokens}">
+                    <Token key="{tokenModel>key}" text="{tokenModel>text}"/>
+                </Tokenizer>
+            </HBox>
+
+            <Text text="Supported: JPG, PNG, GIF. Max 5MB."
+                  class="sapUiTinyMarginTop sapThemeHighlight-asColor"/>
+        </VBox>
+
+        <buttons>
+            <Button text="Cancel" type="Reject" press=".onCloseUploadDialog"/>
+            <Button text="Upload" type="Emphasized" press=".onUploadImageSubmit"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

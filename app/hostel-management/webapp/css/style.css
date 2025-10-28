@@ -281,3 +281,26 @@
 .sapUiSmallMarginTop{
     margin: 0rem
 }
+
+.roomImage {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.sapMColumnListItem .sapMImg {
+    background-color: #f5f5f5;
+}
+
+/* Lightbox customization */
+.sapMLightBox .sapMLightBoxItem {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+/* 
+.roomImage {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f8f8f8 url("../img/no-photo.png") center center no-repeat;
+} */
