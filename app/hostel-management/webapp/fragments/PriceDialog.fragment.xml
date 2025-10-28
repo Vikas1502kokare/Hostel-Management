@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="priceDialog" title="{= ${PriceDialogModel>/isEdit} ? 'Edit Price' : 'Add Price'}">
+    <VBox class="sapUiSmallMargin">
+      <Input placeholder="Type (Room/Food/Penalty/Membership)" value="{PriceDialogModel>Type}" />
+      <Input placeholder="Payment Name" value="{PriceDialogModel>PaymentName}" />
+      <Input placeholder="Price" type="Number" value="{PriceDialogModel>Price}" />
+      <Input placeholder="Currency" value="{PriceDialogModel>Currency}" />
+    </VBox>
+    <endButton>
+      <Button text="Save" press=".onSavePrice" type="Emphasized"/>
+    </endButton>
+    <beginButton>
+      <Button text="Cancel" press=".onCancelDialog"/>
+    </beginButton>
+  </Dialog>
+</core:FragmentDefinition>

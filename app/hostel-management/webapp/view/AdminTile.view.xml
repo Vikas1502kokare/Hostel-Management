@@ -27,30 +27,26 @@
                 >
                     <TileContent>
                         <NumericContent
-                            value="24"
                             icon="sap-icon://home"
                             valueColor="Good"
-                            scale="Rooms"
                         />
                     </TileContent>
                 </GenericTile>
 
-                <!-- <GenericTile
-                    header="Student Management"
-                    subheader="Registered Students"
-                    press=".onTilePressStudents"
+                 <GenericTile
+                    header="Price"
+                    subheader="Manage Price"
+                    press=".onTilePressPrice"
                     class="sapUiTinyMargin"
                 >
                     <TileContent>
                         <NumericContent
-                            value="120"
-                            icon="sap-icon://employee"
+                            icon="sap-icon://mmoney-bills"
                             valueColor="Neutral"
-                            scale="Students"
                         />
                     </TileContent>
                 </GenericTile>
-
+<!--
                 <GenericTile
                     header="Fee Collection"
                     subheader="Monthly Summary"

@@ -26,6 +26,9 @@ sap.ui.define([
         onTilePressRooms: function () {
             this.getOwnerComponent().getRouter().navTo("RoomsDetails");
         },
-        
+        onTilePressPrice: function(){
+            this.getOwnerComponent().getRouter().navTo("PriceList");
+
+        }
     });
 });

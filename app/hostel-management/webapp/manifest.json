@@ -116,6 +116,14 @@
             "RoomsDetails"
           ]
         },
+
+                        {
+          "name": "PriceList",
+          "pattern": "PriceList",
+          "target": [
+            "PriceList"
+          ]
+        },
         {
           "name": "AdminTile",
           "pattern": "AdminTile",
@@ -140,10 +148,15 @@
           "id": "BookingPage",
           "name": "BookingPage"
         },
+        "PriceList": {
+          "id": "PriceList",
+          "name": "PriceList"
+        },      
         "RoomsDetails": {
           "id": "RoomsDetails",
           "name": "RoomsDetails"
         },
+        
         "AdminTile": {
           "id": "AdminTile",
           "name": "AdminTile"

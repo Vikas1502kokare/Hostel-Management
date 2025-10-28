@@ -1,0 +1,44 @@
+<mvc:View
+    controllerName="hostel.com.hostelmanagement.controller.PriceList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+   <Page title="Price Management">
+  <content>
+    <Toolbar>
+      <ToolbarSpacer/>
+      <Button text="Add Price" icon="sap-icon://add" press=".onAddPrice"/>
+    </Toolbar>
+
+    <Table
+      id="priceTable"
+      items="{PriceModel>/}"
+      mode="SingleSelectMaster">
+      <headerToolbar>
+     <Toolbar>
+ <Title text="Price List" level="H2"/>
+ </Toolbar>
+      </headerToolbar>
+      <columns>
+        <Column><Text text="Type"/></Column>
+        <Column><Text text="Payment Name"/></Column>
+        <Column><Text text="Price"/></Column>
+        <Column><Text text="Currency"/></Column>
+        <Column><Text text="Actions"/></Column>
+      </columns>
+      <items>
+        <ColumnListItem>
+          <Text text="{PriceModel>Type}"/>
+          <Text text="{PriceModel>PaymentName}"/>
+          <Text text="{PriceModel>Price}"/>
+          <Text text="{PriceModel>Currency}"/>
+          <HBox>
+            <Button icon="sap-icon://edit" press=".onEditPrice"/>
+            <Button icon="sap-icon://delete" press=".onDeletePrice"/>
+          </HBox>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </content>
+</Page>
+
+</mvc:View>
