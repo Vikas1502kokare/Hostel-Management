@@ -50,9 +50,6 @@ sap.ui.define([
             });
         },
 
-        onRefresh: function () {
-            this._loadRoomsData();
-        },
 
         onDeleteRoom: function (oEvent) {
             const oRoom = oEvent.getSource().getBindingContext().getObject();
@@ -207,6 +204,7 @@ sap.ui.define([
             } finally {
                 oView.setBusy(false);
             }
+
         },
 
         /** ----------------------------------------------------------------

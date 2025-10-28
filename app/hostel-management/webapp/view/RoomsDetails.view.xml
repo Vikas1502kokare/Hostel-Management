@@ -1,146 +1,76 @@
-    <mvc:View
-        controllerName="hostel.com.hostelmanagement.controller.RoomsDetails"
-        xmlns:mvc="sap.ui.core.mvc"
-        xmlns="sap.m"
-        xmlns:core="sap.ui.core"
-        xmlns:l="sap.ui.layout"
-        height="100%">
-        
-        <Page 
-            title="Rooms Details" 
-            showHeader="true" 
-            class="sapUiResponsiveContentPadding">
-            
+<mvc:View controllerName="hostel.com.hostelmanagement.controller.RoomsDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout" height="100%">
+    <Page title="Rooms Details" showHeader="true" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="onBack" >
+        <content>
+            <Table id="roomsTable" sticky="ColumnHeaders,HeaderToolbar" items="{ path: '/Rooms', parameters: {$$updateGroupId: 'roomsGroup'}}" growing="true" growingScrollToLoad="true"  mode="SingleSelectMaster">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Rooms List" level="H2"/>
+                        <ToolbarSpacer/>
+                        <Button icon="sap-icon://add" text="Add Room" press="onAddRoom" type="Emphasized"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Room Photo"/>
+                    </Column>
+                   <Column demandPopin="true">
+                        <Text text="Room Number"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Bed Type"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Price"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="AC Type"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Shareable"/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Persons"/>
+                    </Column>
+       
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Actions"/>
+                    </Column>
 
-            
-            <content>
-                <Table 
-                    id="roomsTable"
-                    inset="false"
-                    items="{
-                        path: '/Rooms',
-                        parameters: {
-                            $$updateGroupId: 'roomsGroup'
-                        }
-                    }"
-                    growing="true"
-                    growingScrollToLoad="true"
-                    mode="SingleSelectLeft">
-                    
-                    <headerToolbar>
-                        <OverflowToolbar>
-                            <Title text="Rooms List" level="H2"/>
-                            <ToolbarSpacer/>
-                            <Button 
-                                icon="sap-icon://add" 
-                                text="Add Room" 
-                                press="onAddRoom"
-                                type="Emphasized"/>
-                        </OverflowToolbar>
-                    </headerToolbar>
-                    
-                    <columns>
-                        <Column width="12em">
-                            <Text text="Room Photo"/>
-                        </Column>
-                        <Column>
-                            <Text text="Room Number"/>
-                        </Column>
-                        <Column>
-                            <Text text="Bed Type"/>
-                        </Column>
-                        <Column>
-                            <Text text="Price"/>
-                        </Column>
-                        <Column>
-                            <Text text="AC Type"/>
-                        </Column>
-                        <Column>
-                            <Text text="Shareable"/>
-                        </Column>
-                        <Column>
-                            <Text text="Persons"/>
-                        </Column>
-                        <Column>
-                            <Text text="Actions"/>
-                        </Column>
-                    </columns>
-                    
-                    <items>
-                        <ColumnListItem>
-                            <cells>
-                                <!-- Room Photo with fallback -->
-                                <l:VerticalLayout class="sapUiSmallMargin">
-    <Image
-    src="{__metadata/media_src}"
-    width="80px"
-    height="60px"
-    class="roomImage"
-    densityAware="false"
-    alt="Room Photo"
-    decorative="false"/>
-
-                                    <Button
-                                        text="Upload Image"
-                                        type="Transparent"
-                                        press="onOpenUploadDialog"
-                                        class="sapUiTinyMarginTop"/>
-                                </l:VerticalLayout>
-                                
-                                <Text text="{RoomNo}"/>
-                                <Text text="{BedTypes}"/>
-                            <Text text="{
-        parts: [
-            { path: 'Price' },
-            { path: 'Currency' }
-        ],
-        type: 'sap.ui.model.type.Currency',
-        formatOptions: {
-            showMeasure: true
-        }
-    }"/>
-
-                                <Text text="{AC_type}"/>
-                                <Text text="{
-                                    path: 'Shareble',
-                                    formatter: '.formatBoolean'
-                                }"/>
-                                <Text text="{NoOfPersons}"/>
-                                
-                                <!-- Actions -->
-                                <l:HorizontalLayout class="sapUiTinyMargin">
-                                    <Button 
-                                        icon="sap-icon://edit" 
-                                        tooltip="Edit Room" 
-                                        press="onEditRoom"
-                                        type="Transparent"/>
-                                    <Button 
-                                        icon="sap-icon://delete" 
-                                        tooltip="Delete Room" 
-                                        press="onDeleteRoom"
-                                        type="Reject"
-                                        class="sapUiTinyMarginBegin"/>
-                                    <Button 
-                                        icon="sap-icon://picture" 
-                                        tooltip="View Full Image" 
-                                        press="onViewPhoto"
-                                        type="Transparent"
-                                        class="sapUiTinyMarginBegin"/>
-                                </l:HorizontalLayout>
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-            </content>
-            
-            <footer>
-                <Toolbar>
-                    <ToolbarSpacer/>
-                    <Button 
-                        text="Back" 
-                        press="onBack"
-                        type="Back"/>
-                </Toolbar>
-            </footer>
-        </Page>
-    </mvc:View>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>                            
+                            <!-- Room Photo with fallback -->
+                            <l:VerticalLayout class="sapUiSmallMargin">
+                                <Image src="{__metadata/media_src}" width="80px" height="60px" class="roomImage" densityAware="false" alt="Room Photo" decorative="false"/>
+                                <Button text="Upload Image" type="Transparent" press="onOpenUploadDialog" class="sapUiTinyMarginTop"/>
+                            </l:VerticalLayout>
+                            <Text text="{RoomNo}"/>
+                            <Text text="{BedTypes}"/>
+                            <Text text="{ parts: [{ path: 'Price' },{ path: 'Currency' }],type: 'sap.ui.model.type.Currency',formatOptions: {showMeasure: true}}"/>
+                            <Text text="{AC_type}"/>
+                            <Text text="{ path: 'Shareble',formatter: '.formatBoolean' }"/>
+                            <Text text="{NoOfPersons}"/>
+                          
+                            <!-- Actions -->
+                            <l:HorizontalLayout class="sapUiTinyMargin">
+                                <Button icon="sap-icon://edit" tooltip="Edit Room" press="onEditRoom" type="Transparent"/>
+                                <Button icon="sap-icon://delete" tooltip="Delete Room" press="onDeleteRoom" type="Reject" class="sapUiTinyMarginBegin"/>
+                                <Button icon="sap-icon://picture" tooltip="View Full Image" press="onViewPhoto" type="Transparent" class="sapUiTinyMarginBegin"/>
+                            </l:HorizontalLayout>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
