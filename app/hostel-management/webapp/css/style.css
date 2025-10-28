@@ -297,10 +297,15 @@
     max-width: 90vw;
     max-height: 90vh;
 }
-/* 
-.roomImage {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    object-fit: cover;
-    background: #f8f8f8 url("../img/no-photo.png") center center no-repeat;
-} */
+
+
+.roomImageClickable {
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform 0.1s ease-in-out;
+}
+
+.roomImageClickable:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}

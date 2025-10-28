@@ -3,21 +3,23 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout" height="100%">
-    <Page title="Rooms Details" showHeader="true" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="onBack" >
+    <Page title="Rooms Details" showHeader="true" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="onBack">
         <content>
-            <Table id="roomsTable" sticky="ColumnHeaders,HeaderToolbar" items="{ path: '/Rooms', parameters: {$$updateGroupId: 'roomsGroup'}}" growing="true" growingScrollToLoad="true"  mode="SingleSelectMaster">
+            <Table id="roomsTable" mode="SingleSelectMaster" selectionChange=".onRoomSelect" sticky="ColumnHeaders,HeaderToolbar" items="{ path: '/Rooms' }" growing="true" growingScrollToLoad="true">
                 <headerToolbar>
                     <OverflowToolbar>
                         <Title text="Rooms List" level="H2"/>
                         <ToolbarSpacer/>
-                        <Button icon="sap-icon://add" text="Add Room" press="onAddRoom" type="Emphasized"/>
+                        <Button icon="sap-icon://add" text="Add Room" press=".onAddRoom" type="Emphasized"/>
+                        <Button id="btnEditRoom" icon="sap-icon://edit" text="Edit" press=".onEditRoom" enabled="false"/>
+                        <Button id="btnDeleteRoom" icon="sap-icon://delete" text="Delete" press=".onDeleteRoom" enabled="false" type="Reject"/>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
                     <Column minScreenWidth="Tablet" demandPopin="true">
                         <Text text="Room Photo"/>
                     </Column>
-                   <Column demandPopin="true">
+                    <Column demandPopin="true">
                         <Text text="Room Number"/>
                     </Column>
                     <Column demandPopin="true">
@@ -35,19 +37,14 @@
                     <Column demandPopin="true">
                         <Text text="Persons"/>
                     </Column>
-       
-                    <Column minScreenWidth="Tablet" demandPopin="true">
-                        <Text text="Actions"/>
-                    </Column>
-
                 </columns>
+
                 <items>
                     <ColumnListItem>
-                        <cells>                            
-                            <!-- Room Photo with fallback -->
+                        <cells>
                             <l:VerticalLayout class="sapUiSmallMargin">
-                                <Image src="{__metadata/media_src}" width="80px" height="60px" class="roomImage" densityAware="false" alt="Room Photo" decorative="false"/>
-                                <Button text="Upload Image" type="Transparent" press="onOpenUploadDialog" class="sapUiTinyMarginTop"/>
+                                <Image src="{path: '__metadata/media_src', formatter: '.cacheBustImage'}" width="90px" height="80px" densityAware="false" alt="Room Photo" press=".onViewPhoto" decorative="false" class="roomImageClickable" />
+                                <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
                             </l:VerticalLayout>
                             <Text text="{RoomNo}"/>
                             <Text text="{BedTypes}"/>
@@ -55,17 +52,11 @@
                             <Text text="{AC_type}"/>
                             <Text text="{ path: 'Shareble',formatter: '.formatBoolean' }"/>
                             <Text text="{NoOfPersons}"/>
-                          
-                            <!-- Actions -->
-                            <l:HorizontalLayout class="sapUiTinyMargin">
-                                <Button icon="sap-icon://edit" tooltip="Edit Room" press="onEditRoom" type="Transparent"/>
-                                <Button icon="sap-icon://delete" tooltip="Delete Room" press="onDeleteRoom" type="Reject" class="sapUiTinyMarginBegin"/>
-                                <Button icon="sap-icon://picture" tooltip="View Full Image" press="onViewPhoto" type="Transparent" class="sapUiTinyMarginBegin"/>
-                            </l:HorizontalLayout>
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
+
         </content>
         <footer>
             <Toolbar>
