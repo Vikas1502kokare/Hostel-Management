@@ -61,7 +61,9 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "hostel.com.hostelmanagement.i18n.i18n"
+          "bundleName": "hostel.com.hostelmanagement.i18n.i18n",
+          "supportedLocales": ["en", "de", ""],
+            "fallbackLocale": "en"
         }
       },
       "": {

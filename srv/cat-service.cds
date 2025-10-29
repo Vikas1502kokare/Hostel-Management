@@ -1,19 +1,23 @@
 using my.hostel as my from '../db/schema';
 
-/**
- * CatalogService — exposes hostel data and handles media streaming.
- */
+
 service CatalogService @(odata.version: '2.0') {
 
-  // --------------------------------------------------------------------------
-  // Entities
-  // --------------------------------------------------------------------------
 
-  entity Rooms as projection on my.Rooms;
+  // entity Rooms as projection on my.Rooms;
+  // annotate CatalogService.Rooms with {
+  //   roomPhotos @Core.MediaType : roomPhotoType;
+  // };
 
-  annotate CatalogService.Rooms with {
-    roomPhotos @Core.MediaType : roomPhotoType;
-  };
+
+  // ✅ NEW Annotation (Nayi Annotation)
+entity Rooms as projection on my.Rooms {
+  *,
+  roomPhotos @(
+    Core.MediaType : roomPhotoType,
+    Core.ContentDisposition.Type: #inline
+  )
+};
 
   entity Price            as projection on my.Price;
   entity Employee         as projection on my.Employee;
@@ -24,9 +28,6 @@ service CatalogService @(odata.version: '2.0') {
   entity Login            as projection on my.Login;
   entity Transaction      as projection on my.Transaction;
 
-  // --------------------------------------------------------------------------
-  // Custom Actions and Functions
-  // --------------------------------------------------------------------------
 
   action uploadImage(
     ID        : UUID,
