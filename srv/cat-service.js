@@ -12,6 +12,24 @@ module.exports = cds.service.impl(async function () {
       stream.on("error", reject);
     });
 
+     const { Price } = this.entities;
+this.before("CREATE", Price, (req) => {
+  const { Type, PaymentName, Price: priceRaw, Currency } = req.data;
+
+  if (!Type || !PaymentName || !priceRaw || !Currency)
+    req.error(400, "All fields are required.");
+
+  const price = parseFloat(priceRaw);
+
+  if (isNaN(price) || price <= 0)
+    req.error(400, "Price must be a positive number.");
+
+  if (!/^[A-Z]{3}$/.test(Currency))
+    req.error(400, "Currency must be a valid 3-letter ISO code.");
+});
+
+
+
   // 🔹 Action: Upload Image
   this.on("uploadImage", async (req) => {
     try {
