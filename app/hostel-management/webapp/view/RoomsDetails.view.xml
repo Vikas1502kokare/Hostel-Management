@@ -116,8 +116,19 @@
                             <ObjectStatus text="{= ${BookingFlag} ? 'Booked' : 'Available' }" state="{= ${BookingFlag} ? 'Error' : 'Success' }" icon="{= ${BookingFlag} ? 'sap-icon://decline' : 'sap-icon://accept' }" />
                             <ExpandableText text="{description}" maxCharacters="8" />
                             <l:VerticalLayout class="sapUiSmallMargin">
-                                <Image src="{path: '__metadata/media_src', formatter: '.cacheBustImage'}" width="90px" height="80px" densityAware="false" alt="Room Photo" press=".onViewPhoto" decorative="false" class="roomImageClickable" />
-                                <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
+
+                            <Image
+  src="{path: '__metadata/media_src', formatter: 'formatter.cacheBustImage'}"
+  width="90px"
+  height="80px"
+  densityAware="false"
+  decorative="false"
+  alt="Room Photo"
+  press=".onViewPhoto"
+  class="roomImageClickable"
+  error=".onImageError" />
+
+          <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
                             </l:VerticalLayout>
                         </cells>
                     </ColumnListItem>

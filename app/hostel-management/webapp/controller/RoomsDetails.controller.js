@@ -5,13 +5,16 @@ sap.ui.define(
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
+  "hostel/com/hostelmanagement/model/formatter"
+    
   ],
-  function (Controller, JSONModel, MessageBox, MessageToast, Fragment) {
+  function (Controller, JSONModel, MessageBox, MessageToast, Fragment, formatter) {
     "use strict";
 
     return Controller.extend(
       "hostel.com.hostelmanagement.controller.RoomsDetails",
       {
+        formatter: formatter,
         onInit: function () {
           const oView = this.getView();
 
@@ -33,6 +36,9 @@ sap.ui.define(
           this._fetchUniqueCompanyCodes();
         },
 
+
+
+        
         // -------------------------------------------------------------
         // 🔹 Naya Private Function: Unique Codes Fetch karna
         // -------------------------------------------------------------
@@ -345,10 +351,21 @@ sap.ui.define(
           }
         },
 
-        cacheBustImage: function (sUrl) {
-          if (!sUrl) return "sap-icon://picture";
-          return sUrl + "?t=" + new Date().getTime(); // add timestamp to bust cache
-        },
+cacheBustImage: function (sMediaSrc) {
+  if (sMediaSrc) {
+    return sMediaSrc + "?t=" + Date.now(); // Backend image
+  }
+  // Local fallback if no backend URL
+  return sap.ui.require.toUrl("hostel/com/hostelmanagement/images/no-image.png");
+},
+
+onImageError: function (oEvent) {
+  const sFallback = sap.ui.require.toUrl("hostel/com/hostelmanagement/images/no-image.png");
+  console.warn("Image failed, using fallback:", sFallback);
+  oEvent.getSource().setSrc(sFallback);
+},
+
+
 
         /** ----------------------------------------------------------------
          *  IMAGE VIEWER

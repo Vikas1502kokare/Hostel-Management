@@ -1,8 +1,9 @@
 <mvc:View controllerName="hostel.com.hostelmanagement.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.f"
-    xmlns:card="sap.f.cards">
+    xmlns:core="sap.ui.core"
+    core:require='{"formatter":"hostel/com/hostelmanagement/model/formatter"}'>
+
     <Page id="page" title="Kalpavriksha Hostel" showHeader="false">
         <!-- === TOP BAR === -->
         <Bar class="customBar">
@@ -185,12 +186,41 @@
             </Carousel>
         </content>
 
-<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-        <FlexBox id="roomsContainer" wrap="Wrap" alignItems="Start" justifyContent="Center" class="sapUiSmallMargin">
-          <!-- Items will be dynamically added in controller// -->
+        <FlexBox id="roomsContainer" wrap="Wrap" alignItems="Start" justifyContent="Center" class="sapUiSmallMargin" items="{ path: '/Rooms'}">
+
+            <items>
+                <Panel width="480px" class="sapUiTinyMargin sapUiNoContentPadding" headerText="{= ${RoomNo} ? 'Room ' + ${RoomNo} : 'Room' }" expandable="false">
+
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+
+                            
+<Image
+  width="100%"
+  height="160px"
+  densityAware="false"
+  decorative="false"
+  src="{path: '__metadata/media_src', formatter: 'formatter.getRoomImage'}"
+  press=".onImagePress"
+  error=".onImageError" />
+
+
+                            <!-- <Image width="100%" height="160px" densityAware="false" decorative="false" src="{= ${__metadata/media_src} ? ${__metadata/media_src} + '?t=' + ${/now} : 'images/no-image.png' }" /> -->
+
+                            <Text text="{= 'Price: ₹' + ${Price} }" class="sapUiTinyMarginTop" />
+                            <Text text="{= 'Type: ' + ${AC_type} }" />
+                            <Text text="{= 'Beds: ' + ${BedTypes} }" />
+                            <Text text="{= 'Description: ' + (${description} || 'N/A') }" />
+
+                            <ObjectStatus text="{= ${BookingFlag} ? 'Booked' : 'Available' }" state="{= ${BookingFlag} ? 'Error' : 'Success' }" />
+
+                            <Button text="View Details" type="Emphasized" class="sapUiTinyMarginTop" press=".onViewDetails" />
+
+                        </VBox>
+                    </content>
+                </Panel>
+            </items>
         </FlexBox>
-      </ScrollContainer>
-      
 
         <footer>
             <OverflowToolbar>
