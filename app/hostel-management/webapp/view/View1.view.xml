@@ -1,30 +1,14 @@
-<mvc:View
-    controllerName="hostel.com.hostelmanagement.controller.View1"
+<mvc:View controllerName="hostel.com.hostelmanagement.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:f="sap.f"
-    xmlns:card="sap.f.cards"
->
-    <Page
-        id="page"
-        title="Kalpavriksha Hostel"
-        showHeader="false"
-    >
+    xmlns:card="sap.f.cards">
+    <Page id="page" title="Kalpavriksha Hostel" showHeader="false">
         <!-- === TOP BAR === -->
         <Bar class="customBar">
             <contentLeft>
-                <Image
-                    src="images/hostel.jpg"
-                    alt="Hostel Logo"
-                    decorative="false"
-                    width="40px"
-                    height="40px"
-                    class="circleImage"
-                />
-                <Text
-                    text="Kalpavriksha Hostel"
-                    class="sapUiSmallMarginBegin sapUiLargeFontSize"
-                />
+                <Image src="images/hostel.jpg" alt="Hostel Logo" decorative="false" width="40px" height="40px" class="circleImage" />
+                <Text text="Kalpavriksha Hostel" class="sapUiSmallMarginBegin sapUiLargeFontSize" />
             </contentLeft>
 
             <!-- <contentMiddle>
@@ -32,158 +16,66 @@
             </contentMiddle> -->
 
             <contentRight>
-                <Button
-                    text="Admin"
-                    class="sapUiLargeMarginEnd"
-                    press="OnAdminTile"
-                />    <Button
-                    text="Home"
-                    class="sapUiLargeMarginEnd"
-                />
-                <Button
-                    text="About Us"
-                    class="sapUiLargeMarginEnd"
-                />
-                <Button
-                    text="Contact Us"
-                    class="sapUiLargeMarginEnd"
-                />
+                <Button text="Admin" class="sapUiLargeMarginEnd" press="OnAdminTile" />
+                <Button text="Home" class="sapUiLargeMarginEnd" />
+                <Button text="About Us" class="sapUiLargeMarginEnd" />
+                <Button text="Contact Us" class="sapUiLargeMarginEnd" />
                 <HBox>
-                    <Button
-                        text="Login"
-                        type="Emphasized"
-                        press="LoginPage"
-                    />
-                    <Button
-                        text="Signup"
-                        class="sapUiTinyMarginBegin"
-                         press="SigninPage"
-                    />
+                    <Button text="Login" type="Emphasized" press="LoginPage" />
+                    <Button text="Signup" class="sapUiTinyMarginBegin" press="SigninPage" />
                 </HBox>
             </contentRight>
         </Bar>
 
         <content>
-            <Carousel
-                id="myCarousel"
-                height="500px"
-                loop="true"
-                showPageIndicator="true"
-                class="customCarousel"
-            >
+            <Carousel id="myCarousel" height="500px" loop="true" showPageIndicator="true" class="customCarousel">
                 <!-- Card 1 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom responsive-card-container"
-                >
-                    <Panel
-                        width="90%"
-                        class="responsive-panel"
-                    >
+                <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom responsive-card-container">
+                    <Panel width="90%" class="responsive-panel">
                         <headerToolbar>
                             <Toolbar class="responsive-toolbar">
-                                <Title
-                                    text="Hot Water Service"
-                                    level="H2"
-                                    class="service-title"
-                                />
+                                <Title text="Hot Water Service" level="H2" class="service-title" />
                                 <ToolbarSpacer />
-                                <ObjectStatus
-                                    text="24/7 Available"
-                                    state="Success"
-                                    class="status-indicator"
-                                />
+                                <ObjectStatus text="24/7 Available" state="Success" class="status-indicator" />
                             </Toolbar>
                         </headerToolbar>
 
-                        <HBox
-                            direction="{= ${device>/system/phone} ? 'Column' : 'Row'}"
-                            justifyContent="SpaceBetween"
-                            alignItems="Stretch"
-                            class="responsive-content"
-                        >
+                        <HBox direction="{= ${device>/system/phone} ? 'Column' : 'Row'}" justifyContent="SpaceBetween" alignItems="Stretch" class="responsive-content">
                             <!-- Column 1: Big Image -->
-                            <VBox
-                                width="{= ${device>/system/phone} ? '100%' : '55%'}"
-                                class="sapUiSmallMargin image-section"
-                            >
-                                <Image
-                                    src="images/food.jpg"
-                                    width="100%"
-                                    height="100%"
-                                    class="big-image"
-                                    densityAware="false"
-                                />
+                            <VBox width="{= ${device>/system/phone} ? '100%' : '55%'}" class="sapUiSmallMargin image-section">
+                                <Image src="images/food.jpg" width="100%" height="100%" class="big-image" densityAware="false" />
                             </VBox>
 
                             <!-- Column 2: Description -->
-                            <VBox
-                                width="{= ${device>/system/phone} ? '100%' : '40%'}"
-                                class="sapUiSmallMargin description-section"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                            <VBox width="{= ${device>/system/phone} ? '100%' : '40%'}" class="sapUiSmallMargin description-section">
+                                <Text text="Enjoy 24/7 access to clean and safe hot water for your comfort.
                         Our hostel provides reliable geysers and water heaters in every washroom.
                         Perfect for refreshing morning showers and relaxing evenings.
                         Regular maintenance ensures consistent temperature and hygiene.
-                        Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                    class="responsive-text"
-                                />
-                                <Button
-                                    text="Learn More"
-                                    type="Emphasized"
-                                    class="sapUiSmallMarginTop action-button"
-                                    press="onLearnMore"
-                                />
+                        Stay warm and comfortable all year round with our trusted hot water service." wrapping="true" class="responsive-text" />
+                                <Button text="Learn More" type="Emphasized" class="sapUiSmallMarginTop action-button" press="onLearnMore" />
                             </VBox>
                         </HBox>
                     </Panel>
                 </VBox>
 
                 <!-- Card 2 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
-                >
-                    <Panel
-                        width="auto"
-                        height="400px"
-                        class="classofmargin"
-                    >
+                <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+                    <Panel width="auto" height="400px" class="classofmargin">
                         <headerToolbar>
                             <Toolbar>
-                                <Title
-                                    text="Hot Water Service"
-                                    level=""
-                                />
-                                <Text
-                                    text=""
-                                    class=""
-                                />
+                                <Title text="Hot Water Service" level="H3" />
+                                <Text text="" class="" />
                             </Toolbar>
                         </headerToolbar>
                         <HBox>
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginEnd"
-                            >
-                                <Image
-                                    src="images/laundry.jpg"
-                                    width="100%"
-                                    height="20rem"
-                                />
+                            <VBox width="50%" class="sapUiSmallMarginEnd">
+                                <Image src="images/laundry.jpg" width="100%" height="20rem" />
                             </VBox>
 
                             <!-- Column 2: Description -->
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginBegin"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                            <VBox width="50%" class="sapUiSmallMarginBegin">
+                                <Text text="Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -192,56 +84,29 @@
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
-                                    Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                />
+                                    Stay warm and comfortable all year round with our trusted hot water service." wrapping="true" />
                             </VBox>
                         </HBox>
                     </Panel>
                 </VBox>
 
                 <!-- Card 3 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
-                >
-                    <Panel
-                        width="auto"
-                        height="400px"
-                        class="classofmargin"
-                    >
+                <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+                    <Panel width="auto" height="400px" class="classofmargin">
                         <headerToolbar>
                             <Toolbar>
-                                <Title
-                                    text="Hot Water Service"
-                                    level=""
-                                />
-                                <Text
-                                    text=""
-                                    class=""
-                                />
+                                <Title text="Hot Water Service" level="H3" />
+                                <Text text="" class="" />
                             </Toolbar>
                         </headerToolbar>
                         <HBox>
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginEnd"
-                            >
-                                <Image
-                                    src="images/wifi.jpg"
-                                    width="100%"
-                                    height="20rem"
-                                />
+                            <VBox width="50%" class="sapUiSmallMarginEnd">
+                                <Image src="images/wifi.jpg" width="100%" height="20rem" />
                             </VBox>
 
                             <!-- Column 2: Description -->
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginBegin"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                            <VBox width="50%" class="sapUiSmallMarginBegin">
+                                <Text text="Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -250,56 +115,29 @@
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
-                                    Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                />
+                                    Stay warm and comfortable all year round with our trusted hot water service." wrapping="true" />
                             </VBox>
                         </HBox>
                     </Panel>
                 </VBox>
 
                 <!-- Card 4 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
-                >
-                    <Panel
-                        width="auto"
-                        height="400px"
-                        class="classofmargin"
-                    >
+                <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+                    <Panel width="auto" height="400px" class="classofmargin">
                         <headerToolbar>
                             <Toolbar>
-                                <Title
-                                    text="Hot Water Service"
-                                    level=""
-                                />
-                                <Text
-                                    text=""
-                                    class=""
-                                />
+                                <Title text="Hot Water Service" level="H3" />
+                                <Text text="" class="" />
                             </Toolbar>
                         </headerToolbar>
                         <HBox>
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginEnd"
-                            >
-                                <Image
-                                    src="images/garden.jpg"
-                                    width="100%"
-                                    height="20rem"
-                                />
+                            <VBox width="50%" class="sapUiSmallMarginEnd">
+                                <Image src="images/garden.jpg" width="100%" height="20rem" />
                             </VBox>
 
                             <!-- Column 2: Description -->
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginBegin"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                            <VBox width="50%" class="sapUiSmallMarginBegin">
+                                <Text text="Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -308,56 +146,29 @@
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
-                                    Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                />
+                                    Stay warm and comfortable all year round with our trusted hot water service." wrapping="true" />
                             </VBox>
                         </HBox>
                     </Panel>
                 </VBox>
 
                 <!-- Card 5 -->
-                <VBox
-                    alignItems="Center"
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop sapUiLargeMarginBottom"
-                >
-                    <Panel
-                        width="auto"
-                        height="400px"
-                        class="classofmargin"
-                    >
+                <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+                    <Panel width="auto" height="400px" class="classofmargin">
                         <headerToolbar>
                             <Toolbar>
-                                <Title
-                                    text="Hot Water Service"
-                                    level=""
-                                />
-                                <Text
-                                    text=""
-                                    class=""
-                                />
+                                <Title text="Hot Water Service" level="H3" />
+                                <Text text="" class="" />
                             </Toolbar>
                         </headerToolbar>
                         <HBox>
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginEnd"
-                            >
-                                <Image
-                                    src="images/hostelimage1.jpg"
-                                    width="100%"
-                                    height="20rem"
-                                />
+                            <VBox width="50%" class="sapUiSmallMarginEnd">
+                                <Image src="images/hostelimage1.jpg" width="100%" height="20rem" />
                             </VBox>
 
                             <!-- Column 2: Description -->
-                            <VBox
-                                width="50%"
-                                class="sapUiSmallMarginBegin"
-                            >
-                                <Text
-                                    text="Enjoy 24/7 access to clean and safe hot water for your comfort.
+                            <VBox width="50%" class="sapUiSmallMarginBegin">
+                                <Text text="Enjoy 24/7 access to clean and safe hot water for your comfort.
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
@@ -366,9 +177,7 @@
                                     Our hostel provides reliable geysers and water heaters in every washroom.
                                     Perfect for refreshing morning showers and relaxing evenings.
                                     Regular maintenance ensures consistent temperature and hygiene.
-                                    Stay warm and comfortable all year round with our trusted hot water service."
-                                    wrapping="true"
-                                />
+                                    Stay warm and comfortable all year round with our trusted hot water service." wrapping="true" />
                             </VBox>
                         </HBox>
                     </Panel>
@@ -376,85 +185,18 @@
             </Carousel>
         </content>
 
-        <Panel
-            headerText="Room Details"
-            width="100%"
-            class="sapUiSmallMargin"
-        >
-            <HBox
-                items="{roomsModel>/}"
-                wrap="Wrap"
-                justifyContent="Center"
-                class="sapUiSmallMargin"
-            >
-                <VBox
-                    class="sapUiSmallMargin sapUiSmallPadding sapUiContentPadding customCard"
-                    width="30%"
-                    alignItems="Center"
-                    justifyContent="SpaceBetween"
-                    direction="Column"
-                    press=".onRoomPress"
-                >
-                    <!-- Image Section -->
-                    <VBox
-                        alignItems="Center"
-                        width="100%"
-                    >
-                        <Image
-                            src="{roomsModel>imageSrc}"
-                            width="100%"
-                            height="180px"
-                            densityAware="false"
-                            class="sapUiSmallMarginBottom"
-                            press="SeeDetails"
-                        />
-                    </VBox>
-
-                    <!-- Content Section -->
-                    <VBox
-                        alignItems="Center"
-                        width="100%"
-                        justifyContent="SpaceBetween"
-                        class="sapUiSmallMarginTop"
-                    >
-                        <VBox
-                            alignItems="Center"
-                            class="sapUiTinyMarginBottom"
-                        >
-                            <Title
-                                text="{roomsModel>AC_type}"
-                                level="H3"
-                                class="sapUiTinyMarginBottom"
-                                titleStyle="H3"
-                            />
-                            <ObjectNumber
-                                number="₹{roomsModel>Price}"
-                                unit="per night"
-                                state="Success"
-                                class="sapUiSmallMarginBottom"
-                            />
-                        </VBox>
-
-                        <Text
-                            text="{roomsModel>description}"
-                            wrapping="true"
-                            class="sapUiSmallMarginTop sapUiSmallMarginBottom description-text"
-                            width="100%"
-                            maxLines="3"
-                        />
-                    </VBox>
-                </VBox>
-            </HBox>
-        </Panel>
+<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
+        <FlexBox id="roomsContainer" wrap="Wrap" alignItems="Start" justifyContent="Center" class="sapUiSmallMargin">
+          <!-- Items will be dynamically added in controller// -->
+        </FlexBox>
+      </ScrollContainer>
+      
 
         <footer>
             <OverflowToolbar>
                 <Text text="@KALPAVRIKSHA HOSTEL" />
                 <ToolbarSpacer />
-                <Button
-                    text="BOOK ROOM"
-                    press="onNavigateToBooking"
-                />
+                <Button text="BOOK ROOM" press="onNavigateToBooking" />
             </OverflowToolbar>
         </footer>
     </Page>
