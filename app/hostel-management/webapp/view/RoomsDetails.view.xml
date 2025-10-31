@@ -117,18 +117,9 @@
                             <ExpandableText text="{description}" maxCharacters="8" />
                             <l:VerticalLayout class="sapUiSmallMargin">
 
-                            <Image
-  src="{path: '__metadata/media_src', formatter: 'formatter.cacheBustImage'}"
-  width="90px"
-  height="80px"
-  densityAware="false"
-  decorative="false"
-  alt="Room Photo"
-  press=".onViewPhoto"
-  class="roomImageClickable"
-  error=".onImageError" />
+                                <Image src="{path: '__metadata/media_src', formatter: 'formatter.cacheBustImage'}" width="90px" height="80px" densityAware="false" decorative="false" alt="Room Photo" press=".onViewPhoto" class="roomImageClickable" error=".onImageError" />
 
-          <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
+                                <Button text="Upload Image" type="Transparent" press=".onOpenUploadDialog" class="sapUiTinyMarginTop"/>
                             </l:VerticalLayout>
                         </cells>
                     </ColumnListItem>

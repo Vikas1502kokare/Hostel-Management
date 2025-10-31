@@ -318,3 +318,65 @@
 .sapMPanel:hover {
   transform: scale(1.03);
 }
+
+
+
+
+
+
+
+/* Flexible spacing between tiles */
+.roomContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem; /* desktop default */
+}
+
+/* fallback for older UI5 FlexBox (if gap isn’t supported) */
+.roomTileMargin {
+  margin: 0.75rem;
+}
+
+/* Card look */
+.roomCard {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roomCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* 🖼️ Rounded corners for image */
+.roomImage {
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* 🧭 Responsive spacing tweaks */
+@media (max-width: 1024px) {
+  .roomContainer {
+    gap: 1rem;
+  }
+  .roomCard {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .roomContainer {
+    gap: 0.75rem;
+  }
+  .roomCard {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+.sapUiMediumFontSize {
+  font-size: 1.2rem; /* around 16px */
+}

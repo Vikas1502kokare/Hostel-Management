@@ -23,6 +23,10 @@ sap.ui.define([
                 }
             });
         },
+        onNBack: function () {
+            this.getOwnerComponent().getRouter().navTo("RouteView1");
+              
+        },
         onTilePressRooms: function () {
             this.getOwnerComponent().getRouter().navTo("RoomsDetails");
         },

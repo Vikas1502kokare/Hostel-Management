@@ -9,7 +9,7 @@
     xmlns:u="sap.ui.unified"
 >
     
-      <Page >
+      <Page showNavButton="true" navButtonPress="onNBack">
       <content>
 
  <FlexBox

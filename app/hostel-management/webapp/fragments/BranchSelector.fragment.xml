@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="branchDialog" title="Select Branch" stretch="{device>/system/phone}" afterClose=".onBranchDialogClose">
+        <VBox class="sapUiMediumMargin">
+            <Label text="Select Branch" labelFor="branchSelect" />
+            <Select id="branchSelect" width="100%" forceSelection="false" items="{branches>/Branches}">
+                <core:Item key="{branches>BranchCode}" text="{branches>BranchName}" />
+            </Select>
+        </VBox>
+        <endButton>
+            <Button text="Confirm" type="Emphasized" press=".onBranchConfirm" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

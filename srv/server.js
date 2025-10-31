@@ -1,3 +1,5 @@
+//srv/server.js
+
 const cds = require("@sap/cds");
 const express = require("express");
 const fileUpload = require("express-fileupload");
