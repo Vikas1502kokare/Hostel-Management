@@ -1,9 +1,11 @@
 const cds = require("@sap/cds");
 const { Readable } = require("stream");
+const bcrypt = require("bcryptjs");
 
 module.exports = cds.service.impl(async function () {
-  const { Rooms } = this.entities;
+  const { Rooms, Price, Login, Customer } = this.entities;
 
+  // Helper: Convert stream to buffer
   const streamToBuffer = (stream) =>
     new Promise((resolve, reject) => {
       const chunks = [];
@@ -12,25 +14,26 @@ module.exports = cds.service.impl(async function () {
       stream.on("error", reject);
     });
 
-     const { Price } = this.entities;
-this.before("CREATE", Price, (req) => {
-  const { Type, PaymentName, Price: priceRaw, Currency } = req.data;
+  // ----------------------------
+  // VALIDATION: PRICE CREATION
+  // ----------------------------
+  this.before("CREATE", Price, (req) => {
+    const { Type, PaymentName, Price: priceRaw, Currency } = req.data;
 
-  if (!Type || !PaymentName || !priceRaw || !Currency)
-    req.error(400, "All fields are required.");
+    if (!Type || !PaymentName || !priceRaw || !Currency)
+      req.error(400, "All fields are required.");
 
-  const price = parseFloat(priceRaw);
+    const price = parseFloat(priceRaw);
+    if (isNaN(price) || price <= 0)
+      req.error(400, "Price must be a positive number.");
 
-  if (isNaN(price) || price <= 0)
-    req.error(400, "Price must be a positive number.");
+    if (!/^[A-Z]{3}$/.test(Currency))
+      req.error(400, "Currency must be a valid 3-letter ISO code.");
+  });
 
-  if (!/^[A-Z]{3}$/.test(Currency))
-    req.error(400, "Currency must be a valid 3-letter ISO code.");
-});
-
-
-
-  // 🔹 Action: Upload Image
+  // ----------------------------
+  // ACTION: UPLOAD IMAGE
+  // ----------------------------
   this.on("uploadImage", async (req) => {
     try {
       const { ID, imageData } = req.data;
@@ -57,14 +60,14 @@ this.before("CREATE", Price, (req) => {
       if (!buffer || buffer.length === 0)
         return "Error: Invalid or empty image data";
 
-      // ✅ FIXED: Add this transaction (missing earlier)
       const tx = cds.tx(req);
-
       const roomExists = await tx.run(SELECT.one.from(Rooms).where({ ID }));
       if (!roomExists) return `Error: Room with ID ${ID} not found`;
 
       await tx.run(
-        UPDATE(Rooms).set({ roomPhotos: buffer, roomPhotoType: mimeType }).where({ ID })
+        UPDATE(Rooms)
+          .set({ roomPhotos: buffer, roomPhotoType: mimeType })
+          .where({ ID })
       );
 
       console.log(`✅ Image uploaded for Room ID: ${ID}, size: ${buffer.length} bytes`);
@@ -75,7 +78,9 @@ this.before("CREATE", Price, (req) => {
     }
   });
 
-  // 🔹 Function: Get Room Photo
+  // ----------------------------
+  // FUNCTION: GET ROOM PHOTO
+  // ----------------------------
   this.on("getRoomPhoto", async (req) => {
     try {
       let { ID } = req.data;
@@ -83,7 +88,10 @@ this.before("CREATE", Price, (req) => {
 
       const tx = cds.tx(req);
       const result = await tx.run(
-        SELECT.one.from(Rooms).columns("roomPhotos", "roomPhotoType").where({ ID })
+        SELECT.one
+          .from(Rooms)
+          .columns("roomPhotos", "roomPhotoType")
+          .where({ ID })
       );
 
       if (!result || !result.roomPhotos) return "no photo found";
@@ -107,7 +115,9 @@ this.before("CREATE", Price, (req) => {
     }
   });
 
-  // 🔹 Action: Delete All Rooms
+  // ----------------------------
+  // ACTION: DELETE ALL ROOMS
+  // ----------------------------
   this.on("deleteAllRooms", async (req) => {
     try {
       const tx = cds.tx(req);
@@ -117,6 +127,117 @@ this.before("CREATE", Price, (req) => {
     } catch (error) {
       console.error("❌ deleteAllRooms error:", error);
       return "Error: Failed to delete rooms - " + error.message;
+    }
+  });
+
+// ----------------------------
+  // ACTION: SIGNUP CUSTOMER
+  // ----------------------------
+  this.on("signupCustomer", async (req) => {
+    try {
+      const {
+        Salutation,
+        CustomerName,
+        Gender,
+        DateOfBirth,
+        PermanentAddress,
+        Country,
+        State,
+        CountryCode,
+        City,
+        STDCode,
+        MobileNo,
+        CustomerEmail,
+        Password
+      } = req.data;
+
+      const email = CustomerEmail.trim().toLowerCase();
+
+      const existing = await SELECT.one.from(Customer).where`lower(CustomerEmail) = ${email}`;
+      if (existing) {
+        return {
+          success: false,
+          message: "Email already registered. Please login instead.",
+          customerID: null
+        };
+      }
+
+      // Hash password
+      const hashed = await bcrypt.hash(Password, 10);
+      const newCustomerID = cds.utils.uuid();
+
+      await INSERT.into(Customer).entries({
+        ID: newCustomerID,
+        Salutation,
+        CustomerName,
+        Gender,
+        DateOfBirth,
+        PermanentAddress,
+        Country,
+        State,
+        CountryCode,
+        City,
+        STDCode,
+        MobileNo,
+        CustomerEmail: email,
+        Password: hashed
+      });
+
+      await INSERT.into(Login).entries({
+        ID: cds.utils.uuid(),
+        UserName: CustomerName,
+        EmailID: email,
+        Password: hashed,
+        MobileNo,
+        Role: "Customer",
+        TimeDate: new Date()
+      });
+
+      return {
+        success: true,
+        message: "Signup successful!",
+        customerID: newCustomerID
+      };
+    } catch (err) {
+      console.error("❌ signupCustomer error:", err);
+      return {
+        success: false,
+        message: "An error occurred during signup.",
+        customerID: null
+      };
+    }
+  });
+
+  // ----------------------------
+  // ACTION: LOGIN CUSTOMER
+  // ----------------------------
+  this.on("loginCustomer", async (req) => {
+    try {
+      const { EmailID, Password } = req.data;
+      const email = EmailID.trim().toLowerCase();
+
+      const user = await SELECT.one.from(Login).where`lower(EmailID) = ${email}`;
+      if (!user)
+        return { success: false, message: "Email not found.", role: null, customerID: null };
+
+      const valid = await bcrypt.compare(Password, user.Password);
+      if (!valid)
+        return { success: false, message: "Incorrect password.", role: null, customerID: null };
+
+      return {
+        success: true,
+        message: "Login successful!",
+        role: user.Role,
+        customerID: user.ID
+      };
+    } catch (err) {
+      console.error("❌ loginCustomer error:", err);
+      return {
+        success: false,
+        message: "Login failed.",
+        role: null,
+        customerID: null
+      };
     }
   });
 });

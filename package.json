@@ -1,13 +1,22 @@
 {
   "name": "Hostel-Management",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
+  "description": "Hostel Management CAP project",
+  "private": true,
+  "scripts": {
+    "start": "cds-serve",
+    "watch-hostel-management": "cds watch --open hostel.com.hostelmanagement/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy Hostel-Management --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
   "dependencies": {
     "@cap-js-community/odata-v2-adapter": "^1.15.5",
     "@cap-js/hana": "^2",
     "@sap/cds": "^9",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
     "@sap/xssec": "^4",
+    "bcryptjs": "^3.0.2",
     "express": "^4"
   },
   "devDependencies": {
@@ -17,14 +26,6 @@
     "mbt": "^1.2.29",
     "rimraf": "^5.0.5"
   },
-  "scripts": {
-    "start": "cds-serve",
-    "watch-hostel-management": "cds watch --open hostel.com.hostelmanagement/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "undeploy": "cf undeploy Hostel-Management --delete-services --delete-service-keys --delete-service-brokers",
-    "build": "rimraf resources mta_archives && mbt build --mtar archive",
-    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
-  },
-  "private": true,
   "cds": {
     "odata": {
       "impl": "@sap/cds/libx/odata",
@@ -41,6 +42,46 @@
     "requires": {
       "[production]": {
         "auth": "xsuaa"
+      },
+      "[development]": {
+        "auth": {
+          "strategy": "mock",
+          "users": {
+            "admin@hostel.com": {
+              "password": "admin123",
+              "roles": [
+                "Admin_Role"
+              ]
+            },
+            "manager@hostel.com": {
+              "password": "manager123",
+              "roles": [
+                "Manager_Role"
+              ]
+            },
+            "employee@hostel.com": {
+              "password": "emp123",
+              "roles": [
+                "Employee_Role"
+              ]
+            },
+            "customer@hostel.com": {
+              "password": "cust123",
+              "roles": [
+                "Customer_Role"
+              ]
+            },
+            "accountant@hostel.com": {
+              "password": "acc123",
+              "roles": [
+                "Accountant_Role"
+              ]
+            }
+          }
+        },
+        "db": {
+          "kind": "sqlite"
+        }
       },
       "db": "hana",
       "connectivity": true,

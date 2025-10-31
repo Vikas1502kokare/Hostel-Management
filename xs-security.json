@@ -1,6 +1,85 @@
 {
-  "scopes": [],
-  "attributes": [],
-  "role-templates": [],
-  "authorities-inheritance": false
+  "tenant-mode": "dedicated",
+  "xsappname": "my-hostel-app",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Full access to manage the system"
+    },
+    {
+      "name": "$XSAPPNAME.Employee",
+      "description": "Staff member with limited operations"
+    },
+    {
+      "name": "$XSAPPNAME.Customer",
+      "description": "Customer with self-service privileges"
+    },
+    {
+      "name": "$XSAPPNAME.Accountant",
+      "description": "Can view and modify payments"
+    },
+    {
+      "name": "$XSAPPNAME.Manager",
+      "description": "Manages bookings and reports"
+    },
+    {
+      "name": "$XSAPPNAME.Admin_Role",
+      "description": "Admin_Role"
+    },
+    {
+      "name": "$XSAPPNAME.Manager_Role",
+      "description": "Manager_Role"
+    },
+    {
+      "name": "$XSAPPNAME.Employee_Role",
+      "description": "Employee_Role"
+    },
+    {
+      "name": "$XSAPPNAME.Customer_Role",
+      "description": "Customer_Role"
+    },
+    {
+      "name": "$XSAPPNAME.Accountant_Role",
+      "description": "Accountant_Role"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Admin_Role",
+      "description": "Administrator role with full privileges",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "Employee_Role",
+      "description": "Employee role with room access",
+      "scope-references": [
+        "$XSAPPNAME.Employee"
+      ]
+    },
+    {
+      "name": "Customer_Role",
+      "description": "Customer role with booking privileges",
+      "scope-references": [
+        "$XSAPPNAME.Customer"
+      ]
+    },
+    {
+      "name": "Accountant_Role",
+      "description": "Accountant role for payment operations",
+      "scope-references": [
+        "$XSAPPNAME.Accountant"
+      ]
+    },
+    {
+      "name": "Manager_Role",
+      "description": "Manager or warden with operational access",
+      "scope-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    }
+  ],
+  "authorities-inheritance": false,
+  "attributes": []
 }

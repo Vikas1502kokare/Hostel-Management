@@ -18,6 +18,36 @@ Content-Type: application/json
 }
 
 
+####
+
+POST http://localhost:4004/odata/v2/catalog/signupCustomer
+Content-Type: application/json
+
+{
+  "Salutation": "Mr.",
+  "CustomerName": "Abdul Mateen",
+  "Gender": "Male",
+  "DateOfBirth": "1990-02-12",
+  "PermanentAddress": "Hyderabad",
+  "Country": "India",
+  "State": "Telangana",
+  "CountryCode": "+91",
+  "City": "Hyderabad",
+  "STDCode": "040",
+  "MobileNo": "777777010",
+  "CustomerEmail": "spider@example.com",
+  "Password": "spider@12"
+}
+
+####
+
+POST http://localhost:4004/odata/v2/catalog/loginCustomer
+Content-Type: application/json
+
+{
+  "EmailID": "spider@example.com",
+  "Password": "spider@12"
+}
 
 
 #### create a room 1st

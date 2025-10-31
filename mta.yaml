@@ -90,6 +90,27 @@ resources:
             - https://*~{app-api/app-uri}/**
         tenant-mode: dedicated
         xsappname: Hostel-Management-${org}-${space}
+        role-collections:
+          - name: 'Admin_Role (Hostel-Management ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Admin_Role'
+          - name: 'Manager_Role (Hostel-Management ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Manager_Role'
+          - name: 'Employee_Role (Hostel-Management ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Employee_Role'
+          - name: 'Customer_Role (Hostel-Management ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Customer_Role'
+          - name: 'Accountant_Role (Hostel-Management ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Accountant_Role'
       path: ./xs-security.json
       service: xsuaa
       service-plan: application
